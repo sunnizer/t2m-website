@@ -1,0 +1,60 @@
+{
+  "vi": {
+    "footer": {
+      "digital": {
+        "marketing": {
+          "partner": {
+            "chuyen": {
+              "performance": "Đối tác tiếp thị kỹ thuật số chuyên về Tối ưu hóa hiệu suất, Lập kế hoạch truyền thông, Quảng bá trên mạng xã hội, Theo dõi và Tự động hóa."
+            }
+          }
+        }
+      }
+    },
+    "hero": {
+      "badge": "Tăng trưởng bằng hệ thống thực chiến",
+      "description": "T2M giúp doanh nghiệp xây dựng hệ thống Digital Marketing từ chiến lược, triển khai, seeding, tracking đến tối ưu hiệu quả — rõ dữ liệu, chắc vận hành, linh hoạt theo mục tiêu tăng trưởng.",
+      "primaryCta": "Khám phá giải pháp",
+      "secondaryCta": "Xem năng lực",
+      "titleHighlight": "hiệu quả.",
+      "titlePrefix": "Tăng trưởng",
+      "titleSuffix": "Dẫn đầu thị trường."
+    },
+    "nav": {
+      "caseStudies": "Dự án",
+      "contact": "Liên hệ",
+      "cta": "Gửi Brief",
+      "insight": "Góc nhìn",
+      "services": "Dịch vụ"
+    }
+  },
+  "en": {
+    "footer": {
+      "digital": {
+        "marketing": {
+          "partner": {
+            "chuyen": {
+              "performance": "Digital marketing partner chuyên Performance, Media Planning, Social Seeding, Tracking & Automation."
+            }
+          }
+        }
+      }
+    },
+    "hero": {
+      "badge": "Growth powered by execution systems",
+      "description": "T2M helps businesses build digital marketing systems from strategy, execution, seeding, tracking to optimization — data-driven, operationally solid, and flexible for growth goals.",
+      "primaryCta": "Explore Solutions",
+      "secondaryCta": "View Capabilities",
+      "titleHighlight": "growth.",
+      "titlePrefix": "Effective",
+      "titleSuffix": "Built to lead."
+    },
+    "nav": {
+      "caseStudies": "Case Studies",
+      "contact": "Contact",
+      "cta": "Send Brief",
+      "insight": "Insights",
+      "services": "Services"
+    }
+  }
+}

@@ -2,17 +2,11 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
 import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
-
-const quickPoints = [
-  "Performance\nMarketing",
-  "Media\nPlanning",
-  "Social\nSeeding",
-  "Tracking &\nAutomation",
-];
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[620px] overflow-hidden bg-slate-50 text-slate-950 sm:min-h-[680px] lg:min-h-[720px]">
+    <section className="relative min-h-[720px] overflow-hidden bg-slate-50 pt-32 text-slate-950 sm:min-h-[760px] sm:pt-36 lg:min-h-[820px] lg:pt-40">
       <Image
         src="/visuals/t2m-growth-hero.png"
         alt="T2M digital marketing growth system visual"
@@ -63,17 +57,6 @@ export default function Hero() {
                 <PlayCircle className="mr-2 h-4 w-4" />
                 Xem năng lực
               </Button>
-            </div>
-
-            <div className="mt-8 grid max-w-[560px] grid-cols-2 gap-3 sm:grid-cols-4">
-              {quickPoints.map((item) => (
-                <div
-                  key={item}
-                  className="flex min-h-[64px] items-center justify-center rounded-2xl border border-slate-200 bg-white/78 px-3 py-3 text-center text-[13px] font-semibold leading-5 text-slate-700 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white"
-                >
-                  <span className="whitespace-pre-line">{item}</span>
-                </div>
-              ))}
             </div>
           </div>
         </div>
