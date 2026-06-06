@@ -2,8 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import Container from "@/components/layout/Container";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import {
-  ArrowRight,
   CheckCircle2,
   ClipboardEdit,
   Mail,
@@ -13,22 +13,74 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const services = [
-  "Performance Marketing",
-  "Media Planning",
-  "Social Media & Seeding",
-  "Tracking, Report & Automation",
-  "Chưa chắc, cần T2M tư vấn",
+const serviceOptions = [
+  {
+    key: "home.finalCta.form.service.options.performanceMarketing",
+    fallback: "Performance Marketing",
+  },
+  {
+    key: "home.finalCta.form.service.options.mediaPlanning",
+    fallback: "Media Planning",
+  },
+  {
+    key: "home.finalCta.form.service.options.socialMediaSeeding",
+    fallback: "Social Media & Seeding",
+  },
+  {
+    key: "home.finalCta.form.service.options.trackingReportAutomation",
+    fallback: "Tracking, Report & Automation",
+  },
+  {
+    key: "home.finalCta.form.service.options.needConsulting",
+    fallback: "Chưa chắc, cần T2M tư vấn",
+  },
 ];
 
-const checklist = [
-  "Phản hồi theo nhu cầu thực tế",
-  "Đề xuất scope phù hợp",
-  "Không cam kết quá đà",
-  "Có thể hỗ trợ từ planning đến reporting",
+const checklistItems = [
+  {
+    key: "home.finalCta.checklist.realNeedResponse",
+    fallback: "Phản hồi theo nhu cầu thực tế",
+  },
+  {
+    key: "home.finalCta.checklist.suitableScope",
+    fallback: "Đề xuất scope phù hợp",
+  },
+  {
+    key: "home.finalCta.checklist.noOverpromise",
+    fallback: "Không cam kết quá đà",
+  },
+  {
+    key: "home.finalCta.checklist.planningToReporting",
+    fallback: "Có thể hỗ trợ từ planning đến reporting",
+  },
+];
+
+const actionCards = [
+  {
+    icon: ClipboardEdit,
+    titleKey: "home.finalCta.cards.brief.title",
+    titleFallback: "Gửi brief",
+    descriptionKey: "home.finalCta.cards.brief.description",
+    descriptionFallback: "Cho campaign đã có yêu cầu sơ bộ.",
+  },
+  {
+    icon: MessageCircle,
+    titleKey: "home.finalCta.cards.zalo.title",
+    titleFallback: "Nhắn Zalo",
+    descriptionKey: "home.finalCta.cards.zalo.description",
+    descriptionFallback: "Trao đổi nhanh về scope.",
+  },
+  {
+    icon: Mail,
+    titleKey: "home.finalCta.cards.email.title",
+    titleFallback: "Gửi email",
+    descriptionKey: "home.finalCta.cards.email.description",
+    descriptionFallback: "Gửi proposal hoặc file brief.",
+  },
 ];
 
 export default function FinalCTA() {
+  const { tr } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -44,16 +96,29 @@ export default function FinalCTA() {
     const budget = String(formData.get("budget") || "");
     const message = String(formData.get("message") || "");
 
-    const subject = encodeURIComponent(`Brief mới từ website T2M - ${company || name}`);
+    const subject = encodeURIComponent(
+      tr("home.finalCta.email.subject", "Brief mới từ website T2M - {{client}}", {
+        client:
+          company ||
+          name ||
+          tr("home.finalCta.email.defaultClient", "Khách hàng"),
+      })
+    );
+
     const body = encodeURIComponent(
-      `Thông tin khách hàng:\n\n` +
-        `Họ tên: ${name}\n` +
-        `Công ty: ${company}\n` +
-        `SĐT/Zalo: ${phone}\n` +
-        `Email: ${email}\n` +
-        `Dịch vụ quan tâm: ${service}\n` +
-        `Ngân sách dự kiến: ${budget}\n\n` +
-        `Nội dung brief:\n${message}\n`
+      tr(
+        "home.finalCta.email.body",
+        "Thông tin khách hàng:\n\nHọ tên: {{name}}\nCông ty: {{company}}\nSĐT/Zalo: {{phone}}\nEmail: {{email}}\nDịch vụ quan tâm: {{service}}\nNgân sách dự kiến: {{budget}}\n\nNội dung brief:\n{{message}}\n",
+        {
+          name,
+          company,
+          phone,
+          email,
+          service,
+          budget,
+          message,
+        }
+      )
     );
 
     window.location.href = `mailto:contact@t2m.vn?subject=${subject}&body=${body}`;
@@ -74,65 +139,55 @@ export default function FinalCTA() {
               <div className="relative">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.24em] text-blue-600 shadow-sm">
                   <Sparkles className="h-3.5 w-3.5" />
-                  Work with T2M
+                  {tr("home.finalCta.badge", "Work with T2M")}
                 </div>
 
                 <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-                  Có campaign cần{" "}
+                  {tr("home.finalCta.titlePrefix", "Có campaign cần")}{" "}
                   <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                    triển khai?
+                    {tr("home.finalCta.titleHighlight", "triển khai?")}
                   </span>
                 </h2>
 
                 <p className="mt-5 max-w-xl text-base leading-8 text-slate-600">
-                  Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ
-                  động liên hệ lại để làm rõ mục tiêu, phạm vi công việc và
-                  phương án triển khai phù hợp.
+                  {tr(
+                    "home.finalCta.description",
+                    "Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ động liên hệ lại để làm rõ mục tiêu, phạm vi công việc và phương án triển khai phù hợp."
+                  )}
                 </p>
 
                 <div className="mt-8 grid gap-3">
-                  {checklist.map((item) => (
-                    <div key={item} className="flex items-center gap-3">
+                  {checklistItems.map((item) => (
+                    <div key={item.key} className="flex items-center gap-3">
                       <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white">
                         <CheckCircle2 className="h-4 w-4" />
                       </div>
                       <span className="text-sm font-medium text-slate-700">
-                        {item}
+                        {tr(item.key, item.fallback)}
                       </span>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm">
-                    <ClipboardEdit className="h-5 w-5 text-blue-600" />
-                    <p className="mt-3 text-sm font-bold text-slate-950">
-                      Gửi brief
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Cho campaign đã có yêu cầu sơ bộ.
-                    </p>
-                  </div>
+                  {actionCards.map((card) => {
+                    const Icon = card.icon;
 
-                  <div className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm">
-                    <MessageCircle className="h-5 w-5 text-blue-600" />
-                    <p className="mt-3 text-sm font-bold text-slate-950">
-                      Nhắn Zalo
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Trao đổi nhanh về scope.
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm">
-                    <Mail className="h-5 w-5 text-blue-600" />
-                    <p className="mt-3 text-sm font-bold text-slate-950">
-                      Gửi email
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Gửi proposal hoặc file brief.
-                    </p>
-                  </div>
+                    return (
+                      <div
+                        key={card.titleKey}
+                        className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm"
+                      >
+                        <Icon className="h-5 w-5 text-blue-600" />
+                        <p className="mt-3 text-sm font-bold text-slate-950">
+                          {tr(card.titleKey, card.titleFallback)}
+                        </p>
+                        <p className="mt-1 text-xs leading-5 text-slate-500">
+                          {tr(card.descriptionKey, card.descriptionFallback)}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -142,23 +197,29 @@ export default function FinalCTA() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Họ tên
+                      {tr("home.finalCta.form.name.label", "Họ tên")}
                     </label>
                     <input
                       name="name"
                       required
-                      placeholder="Anh/chị tên gì?"
+                      placeholder={tr(
+                        "home.finalCta.form.name.placeholder",
+                        "Anh/chị tên gì?"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Công ty
+                      {tr("home.finalCta.form.company.label", "Công ty")}
                     </label>
                     <input
                       name="company"
-                      placeholder="Tên công ty / brand"
+                      placeholder={tr(
+                        "home.finalCta.form.company.placeholder",
+                        "Tên công ty / brand"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
@@ -167,24 +228,30 @@ export default function FinalCTA() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      SĐT / Zalo
+                      {tr("home.finalCta.form.phone.label", "SĐT / Zalo")}
                     </label>
                     <input
                       name="phone"
                       required
-                      placeholder="Số để T2M liên hệ"
+                      placeholder={tr(
+                        "home.finalCta.form.phone.placeholder",
+                        "Số để T2M liên hệ"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Email
+                      {tr("home.finalCta.form.email.label", "Email")}
                     </label>
                     <input
                       name="email"
                       type="email"
-                      placeholder="Email nhận phản hồi"
+                      placeholder={tr(
+                        "home.finalCta.form.email.placeholder",
+                        "Email nhận phản hồi"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
@@ -193,7 +260,10 @@ export default function FinalCTA() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Dịch vụ quan tâm
+                      {tr(
+                        "home.finalCta.form.service.label",
+                        "Dịch vụ quan tâm"
+                      )}
                     </label>
                     <select
                       name="service"
@@ -201,23 +271,36 @@ export default function FinalCTA() {
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     >
                       <option value="" disabled>
-                        Chọn dịch vụ
+                        {tr(
+                          "home.finalCta.form.service.placeholder",
+                          "Chọn dịch vụ"
+                        )}
                       </option>
-                      {services.map((service) => (
-                        <option key={service} value={service}>
-                          {service}
-                        </option>
-                      ))}
+                      {serviceOptions.map((service) => {
+                        const serviceLabel = tr(service.key, service.fallback);
+
+                        return (
+                          <option key={service.key} value={serviceLabel}>
+                            {serviceLabel}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Ngân sách dự kiến
+                      {tr(
+                        "home.finalCta.form.budget.label",
+                        "Ngân sách dự kiến"
+                      )}
                     </label>
                     <input
                       name="budget"
-                      placeholder="VD: 50tr / 100tr / chưa rõ"
+                      placeholder={tr(
+                        "home.finalCta.form.budget.placeholder",
+                        "VD: 50tr / 100tr / chưa rõ"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
@@ -225,13 +308,19 @@ export default function FinalCTA() {
 
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700">
-                    Mô tả nhanh nhu cầu
+                    {tr(
+                      "home.finalCta.form.message.label",
+                      "Mô tả nhanh nhu cầu"
+                    )}
                   </label>
                   <textarea
                     name="message"
                     rows={5}
                     required
-                    placeholder="Anh/chị mô tả ngắn về campaign, mục tiêu, timeline hoặc vấn đề đang cần hỗ trợ..."
+                    placeholder={tr(
+                      "home.finalCta.form.message.placeholder",
+                      "Anh/chị mô tả ngắn về campaign, mục tiêu, timeline hoặc vấn đề đang cần hỗ trợ..."
+                    )}
                     className="w-full resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                   />
                 </div>
@@ -240,32 +329,49 @@ export default function FinalCTA() {
                   type="submit"
                   className="inline-flex h-12 w-full items-center justify-center rounded-full bg-blue-600 px-6 text-sm font-bold text-white shadow-[0_16px_32px_rgba(37,99,235,0.22)] transition hover:bg-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100"
                 >
-                  Gửi thông tin cho T2M
+                  {tr(
+                    "home.finalCta.form.submit",
+                    "Gửi thông tin cho T2M"
+                  )}
                   <Send className="ml-2 h-4 w-4" />
                 </button>
 
                 {isSubmitted && (
                   <div className="rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
-                    Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra
-                    lại và bấm gửi.
+                    {tr(
+                      "home.finalCta.form.success",
+                      "Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra lại và bấm gửi."
+                    )}
                   </div>
                 )}
 
                 <div className="grid gap-3 pt-2 text-sm text-slate-500 sm:grid-cols-2">
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-blue-600" />
-                    <span>Zalo: [Điền số Zalo]</span>
+                    <span>
+                      {tr(
+                        "home.finalCta.contact.zalo",
+                        "Zalo: [Điền số Zalo]"
+                      )}
+                    </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4 text-blue-600" />
-                    <span>Email: contact@t2m.vn</span>
+                    <span>
+                      {tr(
+                        "home.finalCta.contact.email",
+                        "Email: contact@t2m.vn"
+                      )}
+                    </span>
                   </div>
                 </div>
 
                 <p className="text-xs leading-5 text-slate-400">
-                  T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu
-                  của anh/chị. Không dùng cho mục đích spam.
+                  {tr(
+                    "home.finalCta.privacyNote",
+                    "T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu của anh/chị. Không dùng cho mục đích spam."
+                  )}
                 </p>
               </form>
             </div>

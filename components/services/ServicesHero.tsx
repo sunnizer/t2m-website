@@ -1,5 +1,8 @@
+"use client";
+
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import {
   ArrowRight,
   BarChart3,
@@ -11,24 +14,30 @@ import {
 
 const highlights = [
   {
-    label: "Performance",
+    labelKey: "services.hero.highlights.performance",
+    labelFallback: "Performance",
     icon: BarChart3,
   },
   {
-    label: "Media Planning",
+    labelKey: "services.hero.highlights.mediaPlanning",
+    labelFallback: "Media Planning",
     icon: CalendarRange,
   },
   {
-    label: "Social Seeding",
+    labelKey: "services.hero.highlights.socialSeeding",
+    labelFallback: "Social Seeding",
     icon: MessagesSquare,
   },
   {
-    label: "Automation",
+    labelKey: "services.hero.highlights.automation",
+    labelFallback: "Automation",
     icon: Workflow,
   },
 ];
 
 export default function ServicesHero() {
+  const { tr } = useLanguage();
+
   return (
     <section className="relative overflow-hidden bg-slate-50 py-16 text-slate-950 sm:py-20 lg:py-24">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.12),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(34,211,238,0.18),transparent_34%)]" />
@@ -38,20 +47,24 @@ export default function ServicesHero() {
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.24em] text-blue-600 shadow-sm">
               <Sparkles className="h-3.5 w-3.5" />
-              T2M Services
+              {tr("services.hero.badge", "T2M Services")}
             </div>
 
             <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-              Dịch vụ digital marketing cho campaign cần{" "}
+              {tr(
+                "services.hero.titlePrefix",
+                "Dịch vụ digital marketing cho campaign cần"
+              )}{" "}
               <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                chạy rõ và đo rõ.
+                {tr("services.hero.titleHighlight", "chạy rõ và đo rõ.")}
               </span>
             </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-              T2M hỗ trợ doanh nghiệp và agency trong các hạng mục Performance
-              Marketing, Media Planning, Social Media & Seeding, Tracking,
-              Reporting & Automation.
+              {tr(
+                "services.hero.description",
+                "T2M hỗ trợ doanh nghiệp và agency trong các hạng mục Performance Marketing, Media Planning, Social Media & Seeding, Tracking, Reporting & Automation."
+              )}
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -60,7 +73,7 @@ export default function ServicesHero() {
                 size="lg"
                 className="w-full bg-blue-600 text-white shadow-[0_16px_32px_rgba(37,99,235,0.20)] hover:bg-blue-500 sm:w-auto"
               >
-                Gửi brief cho T2M
+                {tr("services.hero.primaryCta", "Gửi brief cho T2M")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
 
@@ -70,7 +83,7 @@ export default function ServicesHero() {
                 size="lg"
                 className="w-full border-blue-200 bg-white/80 text-blue-700 hover:border-blue-400 hover:bg-white sm:w-auto"
               >
-                Xem nhóm dịch vụ
+                {tr("services.hero.secondaryCta", "Xem nhóm dịch vụ")}
               </Button>
             </div>
           </div>
@@ -82,7 +95,7 @@ export default function ServicesHero() {
 
                 return (
                   <div
-                    key={item.label}
+                    key={item.labelKey}
                     className="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-5"
                   >
                     <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-blue-100 blur-2xl" />
@@ -97,7 +110,7 @@ export default function ServicesHero() {
                       </p>
 
                       <h3 className="mt-2 text-lg font-bold text-slate-950">
-                        {item.label}
+                        {tr(item.labelKey, item.labelFallback)}
                       </h3>
 
                       <div className="mt-5 h-2 rounded-full bg-white">
@@ -114,8 +127,10 @@ export default function ServicesHero() {
 
             <div className="mt-4 rounded-3xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 p-5">
               <p className="text-sm font-bold text-slate-950">
-                Một workflow dịch vụ gọn cho campaign cần triển khai, theo dõi
-                và tối ưu liên tục.
+                {tr(
+                  "services.hero.workflowNote",
+                  "Một workflow dịch vụ gọn cho campaign cần triển khai, theo dõi và tối ưu liên tục."
+                )}
               </p>
             </div>
           </div>

@@ -1,4 +1,7 @@
+"use client";
+
 import Container from "@/components/layout/Container";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import {
   ClipboardList,
   MessageCircle,
@@ -9,36 +12,50 @@ import {
 const steps = [
   {
     number: "01",
-    title: "T2M nhận thông tin",
-    description: "Tổng hợp nhu cầu, dịch vụ quan tâm, timeline và ngân sách dự kiến.",
+    titleKey: "contact.process.steps.receiveInfo.title",
+    titleFallback: "T2M nhận thông tin",
+    descriptionKey: "contact.process.steps.receiveInfo.description",
+    descriptionFallback:
+      "Tổng hợp nhu cầu, dịch vụ quan tâm, timeline và ngân sách dự kiến.",
     icon: ClipboardList,
   },
   {
     number: "02",
-    title: "Liên hệ làm rõ",
-    description: "Trao đổi thêm qua Zalo, email hoặc call ngắn để hiểu đúng brief.",
+    titleKey: "contact.process.steps.clarify.title",
+    titleFallback: "Liên hệ làm rõ",
+    descriptionKey: "contact.process.steps.clarify.description",
+    descriptionFallback:
+      "Trao đổi thêm qua Zalo, email hoặc call ngắn để hiểu đúng brief.",
     icon: MessageCircle,
   },
   {
     number: "03",
-    title: "Đề xuất hướng triển khai",
-    description: "T2M đề xuất scope, output và cách triển khai phù hợp với mục tiêu.",
+    titleKey: "contact.process.steps.proposal.title",
+    titleFallback: "Đề xuất hướng triển khai",
+    descriptionKey: "contact.process.steps.proposal.description",
+    descriptionFallback:
+      "T2M đề xuất scope, output và cách triển khai phù hợp với mục tiêu.",
     icon: Route,
   },
 ];
 
 export default function ContactProcess() {
+  const { tr } = useLanguage();
+
   return (
     <section className="bg-slate-50 py-16 text-slate-950 sm:py-20 lg:py-24">
       <Container>
         <div className="mx-auto max-w-4xl text-center">
           <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.24em] text-blue-600 shadow-sm">
             <Sparkles className="h-3.5 w-3.5" />
-            Next Steps
+            {tr("contact.process.badge", "Next Steps")}
           </div>
 
           <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-            Sau khi gửi thông tin thì sao?
+            {tr(
+              "contact.process.title",
+              "Sau khi gửi thông tin thì sao?"
+            )}
           </h2>
         </div>
 
@@ -62,11 +79,11 @@ export default function ContactProcess() {
                 </div>
 
                 <h3 className="mt-6 text-lg font-bold text-slate-950">
-                  {step.title}
+                  {tr(step.titleKey, step.titleFallback)}
                 </h3>
 
                 <p className="mt-3 text-sm leading-7 text-slate-600">
-                  {step.description}
+                  {tr(step.descriptionKey, step.descriptionFallback)}
                 </p>
               </div>
             );

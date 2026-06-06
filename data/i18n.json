@@ -1,6 +1,204 @@
 {
   "vi": {
+    "caseStudies": {
+      "cta": {
+        "badge": "Làm việc cùng T2M",
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Điền số Zalo]"
+        },
+        "description": "Nếu anh/chị đang có event, campaign social, seeding hoặc cần hỗ trợ execution/reporting, hãy để lại thông tin. T2M sẽ chủ động liên hệ lại để làm rõ nhu cầu.",
+        "email": {
+          "body": "Thông tin khách hàng:\n\nHọ tên: {{name}}\nCông ty: {{company}}\nSĐT/Zalo: {{phone}}\nEmail: {{email}}\nDịch vụ quan tâm: {{service}}\nNgân sách dự kiến: {{budget}}\n\nNội dung brief:\n{{message}}",
+          "defaultClient": "Khách hàng",
+          "subject": "Brief campaign từ trang Case Studies T2M - {{client}}"
+        },
+        "form": {
+          "budget": {
+            "label": "Ngân sách dự kiến",
+            "placeholder": "VD: 50tr / 100tr / chưa rõ"
+          },
+          "company": {
+            "label": "Công ty / Brand",
+            "placeholder": "Tên công ty / brand"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Email nhận phản hồi"
+          },
+          "message": {
+            "label": "Mô tả nhanh campaign / event",
+            "placeholder": "Anh/chị mô tả ngắn về event/campaign, mục tiêu, timeline hoặc hạng mục cần T2M hỗ trợ..."
+          },
+          "name": {
+            "label": "Họ tên",
+            "placeholder": "Anh/chị tên gì?"
+          },
+          "phone": {
+            "label": "SĐT / Zalo",
+            "placeholder": "Số để T2M liên hệ"
+          },
+          "service": {
+            "label": "Nhu cầu quan tâm",
+            "placeholder": "Chọn nhu cầu"
+          },
+          "submit": "Gửi thông tin cho T2M",
+          "success": "Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra lại và bấm gửi."
+        },
+        "privacyNote": "T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu của anh/chị. Không dùng cho mục đích spam.",
+        "titleHighlight": "chiến dịch?",
+        "titlePrefix": "Cần một partner triển khai"
+      },
+      "featured": {
+        "badge": "Sự kiện tiêu biểu",
+        "description": "Tập trung vào các campaign có hình ảnh tốt, dễ truyền tải năng lực social activation, seeding và campaign support của T2M.",
+        "title": "Event / Campaign tiêu biểu"
+      },
+      "format": {
+        "badge": "Định dạng case study",
+        "description": "Với những dự án chưa được phép công khai chi tiết, T2M ưu tiên trình bày gọn theo scope, vai trò triển khai và learning chính.",
+        "title": "Cách T2M trình bày case study"
+      },
+      "hero": {
+        "badge": "Case study",
+        "description": "Một số dự án tiêu biểu T2M từng hỗ trợ triển khai theo hướng social activation, seeding, amplification, campaign operation và reporting. Các thông tin được trình bày gọn để đảm bảo tính bảo mật.",
+        "primaryCta": "Gửi brief cho T2M",
+        "secondaryCta": "Xem case tiêu biểu",
+        "titleHighlight": "sự kiện & chiến dịch",
+        "titlePrefix": "Kinh nghiệm triển khai qua các"
+      },
+      "partners": {
+        "badge": "Kinh nghiệm đối tác",
+        "description": "Một số đối tác, agency và đơn vị T2M từng đồng hành hỗ trợ triển khai campaign. Phần này hiển thị bằng text card để đảm bảo đồng bộ, không phụ thuộc chất lượng logo.",
+        "title": "Đối tác agency & doanh nghiệp",
+        "workflow": {
+          "description": "T2M có thể làm việc như partner triển khai, hỗ trợ agency hoặc đồng hành trực tiếp cùng brand theo từng campaign.",
+          "title": "Quy trình ưu tiên phối hợp"
+        }
+      }
+    },
+    "contact": {
+      "faq": {
+        "badge": "Câu hỏi liên hệ",
+        "title": "Câu hỏi thường gặp"
+      },
+      "form": {
+        "badge": "Form nhận brief",
+        "budget": {
+          "label": "Ngân sách dự kiến",
+          "placeholder": "Chọn ngân sách"
+        },
+        "company": {
+          "label": "Công ty / Brand",
+          "placeholder": "Tên công ty / brand"
+        },
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Điền số Zalo]"
+        },
+        "description": "Form này giúp T2M nắm nhanh nhu cầu ban đầu. Anh/chị chưa cần brief quá chi tiết, chỉ cần mô tả mục tiêu hoặc vấn đề đang cần hỗ trợ.",
+        "email": {
+          "body": "Thông tin khách hàng:\n\nHọ tên: {{name}}\nCông ty: {{company}}\nSĐT/Zalo: {{phone}}\nEmail: {{email}}\nDịch vụ quan tâm: {{service}}\nNgân sách dự kiến: {{budget}}\nTimeline dự kiến: {{timeline}}\n\nNội dung brief:\n{{message}}",
+          "defaultClient": "Khách hàng",
+          "label": "Email",
+          "placeholder": "Email nhận phản hồi",
+          "subject": "Brief mới từ website T2M - {{client}}"
+        },
+        "message": {
+          "label": "Mô tả nhanh nhu cầu *",
+          "placeholder": "Anh/chị mô tả ngắn về campaign, mục tiêu, timeline hoặc vấn đề đang cần hỗ trợ..."
+        },
+        "name": {
+          "label": "Họ tên *",
+          "placeholder": "Anh/chị tên gì?"
+        },
+        "phone": {
+          "label": "SĐT / Zalo *",
+          "placeholder": "Số để T2M liên hệ"
+        },
+        "privacyNote": "T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu của anh/chị. Không dùng cho mục đích spam.",
+        "service": {
+          "label": "Dịch vụ quan tâm",
+          "placeholder": "Chọn dịch vụ"
+        },
+        "submit": "Gửi thông tin cho T2M",
+        "success": "Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra lại và bấm gửi.",
+        "timeline": {
+          "label": "Timeline dự kiến",
+          "placeholder": "VD: Tháng 7, Q3, cần triển khai trong 2 tuần..."
+        },
+        "titleHighlight": "T2M sẽ liên hệ lại",
+        "titlePrefix": "Để lại thông tin,"
+      },
+      "hero": {
+        "badge": "Liên hệ T2M",
+        "description": "Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ động liên hệ lại để làm rõ mục tiêu, phạm vi công việc, timeline và phương án triển khai phù hợp.",
+        "email": "Email: contact@t2m.vn",
+        "primaryCta": "Điền form liên hệ",
+        "secondaryCta": "Gửi email",
+        "titleHighlight": "cần triển khai",
+        "titlePrefix": "Gửi brief hoặc nhu cầu",
+        "zalo": "Zalo: [Điền số Zalo]"
+      },
+      "process": {
+        "badge": "Các bước tiếp theo",
+        "title": "Sau khi gửi thông tin thì sao?"
+      }
+    },
+    "floatingContact": {
+      "aria": {
+        "closeForm": "Đóng form liên hệ",
+        "closeOverlay": "Đóng popup liên hệ"
+      },
+      "button": "Liên hệ",
+      "contact": {
+        "email": "Email: contact@t2m.vn",
+        "zalo": "Zalo: [Điền số Zalo]"
+      },
+      "email": {
+        "body": "Thông tin khách hàng:\n\nHọ tên: {{name}}\nCông ty: {{company}}\nSĐT/Zalo: {{phone}}\nEmail: {{email}}\nDịch vụ quan tâm: {{service}}\n\nNội dung nhu cầu:\n{{message}}",
+        "defaultClient": "Khách hàng",
+        "subject": "Lead mới từ Floating Contact T2M - {{client}}"
+      },
+      "form": {
+        "company": {
+          "label": "Công ty",
+          "placeholder": "Tên công ty / brand"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Email nhận phản hồi"
+        },
+        "message": {
+          "label": "Mô tả nhanh nhu cầu *",
+          "placeholder": "Mục tiêu campaign, timeline, ngân sách hoặc hạng mục cần T2M hỗ trợ..."
+        },
+        "name": {
+          "label": "Họ tên *",
+          "placeholder": "Anh/chị tên gì?"
+        },
+        "phone": {
+          "label": "SĐT / Zalo *",
+          "placeholder": "Số để T2M liên hệ"
+        },
+        "privacyNote": "T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu. Không dùng cho mục đích spam.",
+        "service": {
+          "label": "Dịch vụ quan tâm",
+          "placeholder": "Chọn dịch vụ"
+        },
+        "submit": "Gửi thông tin cho T2M",
+        "success": "Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra lại và bấm gửi."
+      },
+      "modal": {
+        "badge": "Liên hệ T2M",
+        "description": "Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ động liên hệ lại qua Zalo hoặc email.",
+        "title": "Gửi nhanh nhu cầu campaign"
+      }
+    },
     "footer": {
+      "companyName": "Công ty TNHH Giải Pháp và Truyền Thông T2M",
+      "copyright": "© {{year}} T2M Media & Solutions.",
+      "description": "Digital marketing partner chuyên Performance, Media Planning, Social Seeding, Tracking & Automation.",
       "digital": {
         "marketing": {
           "partner": {
@@ -9,7 +207,24 @@
             }
           }
         }
-      }
+      },
+      "email": "[Điền email]",
+      "logoAlt": "T2M Media Logo",
+      "logoAria": "Về trang chủ T2M",
+      "servicesTitle": "Dịch vụ",
+      "taxCode": "MST: [Điền MST]",
+      "websiteTitle": "Website",
+      "zalo": "[Điền số Zalo]"
+    },
+    "header": {
+      "languageSwitchAria": "Đổi ngôn ngữ",
+      "languageSwitchEn": "EN / VI",
+      "languageSwitchVi": "VI / EN",
+      "logoAria": "Về trang chủ T2M",
+      "logoLine1": "Growth",
+      "logoLine2": "System",
+      "mobileMenuAria": "Mở menu",
+      "navigationAria": "Điều hướng chính"
     },
     "hero": {
       "badge": "Tăng trưởng bằng hệ thống thực chiến",
@@ -20,25 +235,424 @@
       "titlePrefix": "Tăng trưởng",
       "titleSuffix": "Dẫn đầu thị trường."
     },
+    "home": {
+      "about": {
+        "badge": "Về T2M",
+        "description": "T2M đồng hành cùng doanh nghiệp và agency trong toàn bộ quá trình triển khai digital campaign — từ planning, execution, seeding, tracking đến reporting và automation.",
+        "titleHighlight": "tăng trưởng số",
+        "titlePrefix": "Đối tác",
+        "titleSuffix": "của bạn"
+      },
+      "caseStudies": {
+        "badge": "Kinh nghiệm tiêu biểu",
+        "description": "Một số chiến dịch và sự kiện tiêu biểu T2M từng hỗ trợ triển khai theo hướng social activation, seeding, amplification và reporting.",
+        "partnersBadge": "Đối tác tiêu biểu",
+        "partnersDescription": "Một số đối tác, agency và đơn vị T2M từng đồng hành hỗ trợ triển khai campaign.",
+        "partnersTitle": "Đối tác agency & doanh nghiệp",
+        "titleHighlight": "tiêu biểu",
+        "titlePrefix": "Sự kiện & chiến dịch",
+        "viewMoreCta": "Xem thêm kinh nghiệm"
+      },
+      "finalCta": {
+        "badge": "Làm việc cùng T2M",
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Điền số Zalo]"
+        },
+        "description": "Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ động liên hệ lại để làm rõ mục tiêu, phạm vi công việc và phương án triển khai phù hợp.",
+        "email": {
+          "body": "Thông tin khách hàng:\n\nHọ tên: {{name}}\nCông ty: {{company}}\nSĐT/Zalo: {{phone}}\nEmail: {{email}}\nDịch vụ quan tâm: {{service}}\nNgân sách dự kiến: {{budget}}\n\nNội dung brief:\n{{message}}",
+          "defaultClient": "Khách hàng",
+          "subject": "Brief mới từ website T2M - {{client}}"
+        },
+        "form": {
+          "budget": {
+            "label": "Ngân sách dự kiến",
+            "placeholder": "VD: 50tr / 100tr / chưa rõ"
+          },
+          "company": {
+            "label": "Công ty",
+            "placeholder": "Tên công ty / brand"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Email nhận phản hồi"
+          },
+          "message": {
+            "label": "Mô tả nhanh nhu cầu",
+            "placeholder": "Anh/chị mô tả ngắn về campaign, mục tiêu, timeline hoặc vấn đề đang cần hỗ trợ..."
+          },
+          "name": {
+            "label": "Họ tên",
+            "placeholder": "Anh/chị tên gì?"
+          },
+          "phone": {
+            "label": "SĐT / Zalo",
+            "placeholder": "Số để T2M liên hệ"
+          },
+          "service": {
+            "label": "Dịch vụ quan tâm",
+            "placeholder": "Chọn dịch vụ"
+          },
+          "submit": "Gửi thông tin cho T2M",
+          "success": "Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra lại và bấm gửi."
+        },
+        "privacyNote": "T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu của anh/chị. Không dùng cho mục đích spam.",
+        "titleHighlight": "triển khai?",
+        "titlePrefix": "Có campaign cần"
+      },
+      "hero": {
+        "badge": "T2M Media & Solutions",
+        "description": "T2M cung cấp giải pháp Digital Marketing & Media giúp doanh nghiệp tăng trưởng dựa trên dữ liệu, công nghệ và khả năng triển khai thực chiến.",
+        "imageAlt": "T2M digital marketing growth system visual",
+        "primaryCta": "Khám phá giải pháp",
+        "secondaryCta": "Xem năng lực",
+        "titleLine1Highlight": "hiệu quả.",
+        "titleLine1Prefix": "Tăng trưởng",
+        "titleLine2": "Dẫn đầu thị trường."
+      },
+      "services": {
+        "badge": "Dịch vụ",
+        "cardNote": "Phù hợp với campaign cần triển khai rõ ràng",
+        "description": "Các hạng mục cốt lõi giúp campaign được lập kế hoạch, triển khai, theo dõi và tối ưu rõ ràng.",
+        "eyebrow": "Dịch vụ",
+        "operation": {
+          "cta": "Trao đổi nhu cầu",
+          "description": "T2M kết hợp planning, media execution, social seeding, tracking và reporting để giúp chiến dịch vận hành gọn hơn, rõ hơn và dễ kiểm soát hơn.",
+          "title": "Campaign operation có hệ thống"
+        },
+        "title": "Dịch vụ chính của T2M",
+        "titleHighlight": "Digital Marketing",
+        "titlePrefix": "Giải pháp",
+        "titleSuffix": "cho campaign cần hiệu quả",
+        "viewAllCta": "Xem tất cả dịch vụ",
+        "visuals": {
+          "automation": {
+            "title": "Quy trình"
+          },
+          "plan": {
+            "title": "Phân bổ kênh"
+          },
+          "social": {
+            "title": "Tín hiệu social"
+          }
+        }
+      }
+    },
     "nav": {
       "caseStudies": "Dự án",
       "contact": "Liên hệ",
       "cta": "Gửi Brief",
       "insight": "Góc nhìn",
       "services": "Dịch vụ"
+    },
+    "services": {
+      "cta": {
+        "badge": "Bắt đầu cùng T2M",
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Điền số Zalo]"
+        },
+        "description": "Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ động liên hệ lại để tư vấn nhóm dịch vụ, phạm vi công việc và phương án triển khai phù hợp.",
+        "email": {
+          "body": "Thông tin khách hàng:\n\nHọ tên: {{name}}\nCông ty: {{company}}\nSĐT/Zalo: {{phone}}\nEmail: {{email}}\nDịch vụ quan tâm: {{service}}\nNgân sách dự kiến: {{budget}}\n\nNội dung brief:\n{{message}}",
+          "defaultClient": "Khách hàng",
+          "subject": "Brief dịch vụ từ website T2M - {{client}}"
+        },
+        "form": {
+          "budget": {
+            "label": "Ngân sách dự kiến",
+            "placeholder": "VD: 50tr / 100tr / chưa rõ"
+          },
+          "company": {
+            "label": "Công ty",
+            "placeholder": "Tên công ty / brand"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Email nhận phản hồi"
+          },
+          "message": {
+            "label": "Mô tả nhanh nhu cầu",
+            "placeholder": "Anh/chị mô tả ngắn về campaign, mục tiêu, timeline hoặc vấn đề đang cần hỗ trợ..."
+          },
+          "name": {
+            "label": "Họ tên",
+            "placeholder": "Anh/chị tên gì?"
+          },
+          "phone": {
+            "label": "SĐT / Zalo",
+            "placeholder": "Số để T2M liên hệ"
+          },
+          "service": {
+            "label": "Dịch vụ quan tâm",
+            "placeholder": "Chọn dịch vụ"
+          },
+          "submit": "Gửi thông tin cho T2M",
+          "success": "Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra lại và bấm gửi."
+        },
+        "privacyNote": "T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu của anh/chị. Không dùng cho mục đích spam.",
+        "titleHighlight": "dịch vụ nào?",
+        "titlePrefix": "Chưa chắc nên bắt đầu từ"
+      },
+      "deliverables": {
+        "badge": "Kết quả bàn giao",
+        "description": "T2M ưu tiên output rõ ràng, dễ kiểm tra và có thể dùng ngay trong quá trình vận hành campaign.",
+        "title": "Khách hàng nhận được gì?"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Câu hỏi thường gặp"
+      },
+      "hero": {
+        "badge": "Dịch vụ T2M",
+        "description": "T2M hỗ trợ doanh nghiệp và agency trong các hạng mục Performance Marketing, Media Planning, Social Media & Seeding, Tracking, Reporting & Automation.",
+        "primaryCta": "Gửi brief cho T2M",
+        "secondaryCta": "Xem nhóm dịch vụ",
+        "titleHighlight": "chạy rõ và đo rõ.",
+        "titlePrefix": "Dịch vụ digital marketing cho campaign cần",
+        "workflowNote": "Một workflow dịch vụ gọn cho campaign cần triển khai, theo dõi và tối ưu liên tục."
+      },
+      "pillars": {
+        "badge": "Dịch vụ cốt lõi",
+        "description": "T2M không cố làm mọi thứ. Chúng tôi tập trung vào những hạng mục giúp campaign được triển khai rõ, theo dõi rõ và tối ưu rõ.",
+        "outputLabel": "Đầu ra",
+        "suitableLabel": "Phù hợp cho",
+        "title": "4 nhóm dịch vụ chính của T2M"
+      },
+      "process": {
+        "badge": "Quy trình làm việc",
+        "description": "Quy trình đơn giản, rõ việc và phù hợp với cả doanh nghiệp lẫn agency cần outsource execution.",
+        "title": "Cách T2M triển khai dịch vụ"
+      }
     }
   },
   "en": {
+    "caseStudies": {
+      "cta": {
+        "badge": "Work with T2M",
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Add Zalo number]"
+        },
+        "description": "If you have an event, social campaign, seeding need, or need support with execution/reporting, leave your information. T2M will proactively contact you to clarify your needs.",
+        "email": {
+          "body": "Customer information:\n\nFull name: {{name}}\nCompany: {{company}}\nPhone/Zalo: {{phone}}\nEmail: {{email}}\nInterested service: {{service}}\nEstimated budget: {{budget}}\n\nBrief content:\n{{message}}",
+          "defaultClient": "Client",
+          "subject": "Campaign brief from T2M Case Studies page - {{client}}"
+        },
+        "form": {
+          "budget": {
+            "label": "Estimated budget",
+            "placeholder": "E.g. VND 50M / VND 100M / not sure yet"
+          },
+          "company": {
+            "label": "Company / Brand",
+            "placeholder": "Company / brand name"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Email for follow-up"
+          },
+          "message": {
+            "label": "Quick campaign / event description",
+            "placeholder": "Briefly describe the event/campaign, objectives, timeline, or areas where T2M can support..."
+          },
+          "name": {
+            "label": "Full name",
+            "placeholder": "What is your name?"
+          },
+          "phone": {
+            "label": "Phone / Zalo",
+            "placeholder": "Phone number for T2M to contact you"
+          },
+          "service": {
+            "label": "Need of interest",
+            "placeholder": "Select a need"
+          },
+          "submit": "Send information to T2M",
+          "success": "The information has been prepared in your email. Please review it and click send."
+        },
+        "privacyNote": "T2M will use this information to contact you for consultation based on your needs. It will not be used for spam.",
+        "titleHighlight": "campaign?",
+        "titlePrefix": "Need an execution partner for"
+      },
+      "featured": {
+        "badge": "Featured Events",
+        "description": "Focused on campaigns with strong visuals that clearly demonstrate T2M's social activation, seeding, and campaign support capabilities.",
+        "title": "Featured Event / Campaign"
+      },
+      "format": {
+        "badge": "Case Format",
+        "description": "For projects that cannot be disclosed in detail, T2M presents them concisely by scope, execution role, and key learnings.",
+        "title": "How T2M presents case studies"
+      },
+      "hero": {
+        "badge": "Case Studies",
+        "description": "A selection of projects T2M has supported across social activation, seeding, amplification, campaign operations, and reporting. Information is summarized to maintain confidentiality.",
+        "primaryCta": "Send a brief to T2M",
+        "secondaryCta": "View featured cases",
+        "titleHighlight": "event & campaign",
+        "titlePrefix": "Execution experience across"
+      },
+      "partners": {
+        "badge": "Partner Experience",
+        "description": "A selection of partners, agencies, and organizations T2M has collaborated with to support campaign execution. This section uses text cards for consistency and does not depend on logo quality.",
+        "title": "Agency & company partners",
+        "workflow": {
+          "description": "T2M can work as an execution partner, support agencies, or collaborate directly with brands depending on each campaign.",
+          "title": "Collaboration-first workflow"
+        }
+      }
+    },
+    "contact": {
+      "faq": {
+        "badge": "Contact FAQ",
+        "title": "Frequently Asked Questions"
+      },
+      "form": {
+        "badge": "Brief Form",
+        "budget": {
+          "label": "Estimated budget",
+          "placeholder": "Select a budget"
+        },
+        "company": {
+          "label": "Company / Brand",
+          "placeholder": "Company / brand name"
+        },
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Add Zalo number]"
+        },
+        "description": "This form helps T2M quickly understand your initial needs. You do not need a highly detailed brief yet—just describe your goal or the issue you need support with.",
+        "email": {
+          "body": "Customer information:\n\nFull name: {{name}}\nCompany: {{company}}\nPhone/Zalo: {{phone}}\nEmail: {{email}}\nInterested service: {{service}}\nEstimated budget: {{budget}}\nEstimated timeline: {{timeline}}\n\nBrief content:\n{{message}}",
+          "defaultClient": "Client",
+          "label": "Email",
+          "placeholder": "Email for follow-up",
+          "subject": "New brief from T2M website - {{client}}"
+        },
+        "message": {
+          "label": "Quick need description *",
+          "placeholder": "Briefly describe the campaign, objective, timeline, or issue you need support with..."
+        },
+        "name": {
+          "label": "Full name *",
+          "placeholder": "What is your name?"
+        },
+        "phone": {
+          "label": "Phone / Zalo *",
+          "placeholder": "Phone number for T2M to contact you"
+        },
+        "privacyNote": "T2M will use this information to contact you for consultation based on your needs. It will not be used for spam.",
+        "service": {
+          "label": "Interested service",
+          "placeholder": "Select a service"
+        },
+        "submit": "Send information to T2M",
+        "success": "The information has been prepared in your email. Please review it and click send.",
+        "timeline": {
+          "label": "Estimated timeline",
+          "placeholder": "E.g. July, Q3, or needs to launch within 2 weeks..."
+        },
+        "titleHighlight": "T2M will contact you",
+        "titlePrefix": "Leave your information,"
+      },
+      "hero": {
+        "badge": "Contact T2M",
+        "description": "Leave a short note about your needs. T2M will review it and proactively contact you to clarify the objective, scope of work, timeline, and suitable execution approach.",
+        "email": "Email: contact@t2m.vn",
+        "primaryCta": "Fill out the contact form",
+        "secondaryCta": "Send email",
+        "titleHighlight": "that needs execution",
+        "titlePrefix": "Send a brief or request",
+        "zalo": "Zalo: [Add Zalo number]"
+      },
+      "process": {
+        "badge": "Next Steps",
+        "title": "What happens after you submit your information?"
+      }
+    },
+    "floatingContact": {
+      "aria": {
+        "closeForm": "Close contact form",
+        "closeOverlay": "Close contact popup"
+      },
+      "button": "Contact",
+      "contact": {
+        "email": "Email: contact@t2m.vn",
+        "zalo": "Zalo: [Add Zalo number]"
+      },
+      "email": {
+        "body": "Customer information:\n\nFull name: {{name}}\nCompany: {{company}}\nPhone/Zalo: {{phone}}\nEmail: {{email}}\nInterested service: {{service}}\n\nNeed description:\n{{message}}",
+        "defaultClient": "Client",
+        "subject": "New lead from T2M Floating Contact - {{client}}"
+      },
+      "form": {
+        "company": {
+          "label": "Company",
+          "placeholder": "Company / brand name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Email for follow-up"
+        },
+        "message": {
+          "label": "Quick need description *",
+          "placeholder": "Campaign objective, timeline, budget, or areas where T2M can support..."
+        },
+        "name": {
+          "label": "Full name *",
+          "placeholder": "What is your name?"
+        },
+        "phone": {
+          "label": "Phone / Zalo *",
+          "placeholder": "Phone number for T2M to contact you"
+        },
+        "privacyNote": "T2M will use this information to contact you for consultation based on your needs. It will not be used for spam.",
+        "service": {
+          "label": "Interested service",
+          "placeholder": "Select a service"
+        },
+        "submit": "Send information to T2M",
+        "success": "The information has been prepared in your email. Please review it and click send."
+      },
+      "modal": {
+        "badge": "Contact T2M",
+        "description": "Leave a short note about your needs. T2M will review it and proactively contact you via Zalo or email.",
+        "title": "Quickly send your campaign request"
+      }
+    },
     "footer": {
+      "companyName": "T2M Media and Solutions Co., Ltd.",
+      "copyright": "© {{year}} T2M Media & Solutions.",
+      "description": "Digital marketing partner specializing in Performance, Media Planning, Social Seeding, Tracking & Automation.",
       "digital": {
         "marketing": {
           "partner": {
             "chuyen": {
-              "performance": "Digital marketing partner chuyên Performance, Media Planning, Social Seeding, Tracking & Automation."
+              "performance": "Digital marketing partner specializing in Performance, Media Planning, Social Seeding, Tracking & Automation."
             }
           }
         }
-      }
+      },
+      "email": "[Add email]",
+      "logoAlt": "T2M Media Logo",
+      "logoAria": "Back to T2M homepage",
+      "servicesTitle": "Services",
+      "taxCode": "Tax code: [Add tax code]",
+      "websiteTitle": "Website",
+      "zalo": "[Add Zalo number]"
+    },
+    "header": {
+      "languageSwitchAria": "Switch language",
+      "languageSwitchEn": "EN / VI",
+      "languageSwitchVi": "VI / EN",
+      "logoAria": "Back to T2M homepage",
+      "logoLine1": "Growth",
+      "logoLine2": "System",
+      "mobileMenuAria": "Open menu",
+      "navigationAria": "Main navigation"
     },
     "hero": {
       "badge": "Growth powered by execution systems",
@@ -49,12 +663,196 @@
       "titlePrefix": "Effective",
       "titleSuffix": "Built to lead."
     },
+    "home": {
+      "about": {
+        "badge": "About T2M",
+        "description": "T2M partners with businesses and agencies throughout the digital campaign execution journey—from planning, execution, and seeding to tracking, reporting, and automation.",
+        "titleHighlight": "Digital Growth",
+        "titlePrefix": "Your",
+        "titleSuffix": "Partner"
+      },
+      "caseStudies": {
+        "badge": "Selected Experience",
+        "description": "A selection of campaigns and events T2M has supported through social activation, seeding, amplification, and reporting.",
+        "partnersBadge": "Selected Partners",
+        "partnersDescription": "A selection of partners, agencies, and organizations T2M has collaborated with to support campaign execution.",
+        "partnersTitle": "Agency & company partners",
+        "titleHighlight": "featured",
+        "titlePrefix": "Event & Campaign",
+        "viewMoreCta": "View more experience"
+      },
+      "finalCta": {
+        "badge": "Work with T2M",
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Add Zalo number]"
+        },
+        "description": "Leave a short note about your needs. T2M will review it and proactively contact you to clarify the objective, scope of work, and suitable execution approach.",
+        "email": {
+          "body": "Customer information:\n\nFull name: {{name}}\nCompany: {{company}}\nPhone/Zalo: {{phone}}\nEmail: {{email}}\nInterested service: {{service}}\nEstimated budget: {{budget}}\n\nBrief content:\n{{message}}",
+          "defaultClient": "Client",
+          "subject": "New brief from T2M website - {{client}}"
+        },
+        "form": {
+          "budget": {
+            "label": "Estimated budget",
+            "placeholder": "E.g. VND 50M / VND 100M / not sure yet"
+          },
+          "company": {
+            "label": "Company",
+            "placeholder": "Company / brand name"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Email for follow-up"
+          },
+          "message": {
+            "label": "Quick need description",
+            "placeholder": "Briefly describe the campaign, objective, timeline, or issue you need support with..."
+          },
+          "name": {
+            "label": "Full name",
+            "placeholder": "What is your name?"
+          },
+          "phone": {
+            "label": "Phone / Zalo",
+            "placeholder": "Phone number for T2M to contact you"
+          },
+          "service": {
+            "label": "Interested service",
+            "placeholder": "Select a service"
+          },
+          "submit": "Send information to T2M",
+          "success": "The information has been prepared in your email. Please review it and click send."
+        },
+        "privacyNote": "T2M will use this information to contact you for consultation based on your needs. It will not be used for spam.",
+        "titleHighlight": "execution?",
+        "titlePrefix": "Have a campaign that needs"
+      },
+      "hero": {
+        "badge": "T2M Media & Solutions",
+        "description": "T2M provides Digital Marketing & Media solutions that help businesses grow through data, technology, and hands-on execution capability.",
+        "imageAlt": "T2M digital marketing growth system visual",
+        "primaryCta": "Explore solutions",
+        "secondaryCta": "View capabilities",
+        "titleLine1Highlight": "effectively.",
+        "titleLine1Prefix": "Growth",
+        "titleLine2": "Lead the market."
+      },
+      "services": {
+        "badge": "Services",
+        "cardNote": "Suitable for campaigns that need clear execution",
+        "description": "T2M focuses on the core workstreams that help campaigns be planned, executed, measured, and optimized clearly.",
+        "eyebrow": "Services",
+        "operation": {
+          "cta": "Discuss your needs",
+          "description": "T2M combines planning, execution, social seeding, tracking, and reporting to make campaigns clearer in tasks, data, and optimization.",
+          "title": "Not just running ads, but operating campaigns with a system."
+        },
+        "title": "T2M's core services",
+        "titleHighlight": "Digital Marketing",
+        "titlePrefix": "Solutions",
+        "titleSuffix": "for campaigns that need results",
+        "viewAllCta": "View all services",
+        "visuals": {
+          "automation": {
+            "title": "Workflow"
+          },
+          "plan": {
+            "title": "Channel Mix"
+          },
+          "social": {
+            "title": "Social Signals"
+          }
+        }
+      }
+    },
     "nav": {
       "caseStudies": "Case Studies",
       "contact": "Contact",
       "cta": "Send Brief",
       "insight": "Insights",
       "services": "Services"
+    },
+    "services": {
+      "cta": {
+        "badge": "Start with T2M",
+        "contact": {
+          "email": "Email: contact@t2m.vn",
+          "zalo": "Zalo: [Add Zalo number]"
+        },
+        "description": "Leave a short note about your needs. T2M will review it and proactively contact you to advise on the right service group, scope of work, and execution approach.",
+        "email": {
+          "body": "Customer information:\n\nFull name: {{name}}\nCompany: {{company}}\nPhone/Zalo: {{phone}}\nEmail: {{email}}\nInterested service: {{service}}\nEstimated budget: {{budget}}\n\nBrief content:\n{{message}}",
+          "defaultClient": "Client",
+          "subject": "Service brief from T2M website - {{client}}"
+        },
+        "form": {
+          "budget": {
+            "label": "Estimated budget",
+            "placeholder": "E.g. VND 50M / VND 100M / not sure yet"
+          },
+          "company": {
+            "label": "Company",
+            "placeholder": "Company / brand name"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Email for follow-up"
+          },
+          "message": {
+            "label": "Quick need description",
+            "placeholder": "Briefly describe the campaign, objective, timeline, or issue you need support with..."
+          },
+          "name": {
+            "label": "Full name",
+            "placeholder": "What is your name?"
+          },
+          "phone": {
+            "label": "Phone / Zalo",
+            "placeholder": "Phone number for T2M to contact you"
+          },
+          "service": {
+            "label": "Interested service",
+            "placeholder": "Select a service"
+          },
+          "submit": "Send information to T2M",
+          "success": "The information has been prepared in your email. Please review it and click send."
+        },
+        "privacyNote": "T2M will use this information to contact you for consultation based on your needs. It will not be used for spam.",
+        "titleHighlight": "which service?",
+        "titlePrefix": "Not sure which"
+      },
+      "deliverables": {
+        "badge": "Deliverables",
+        "description": "T2M prioritizes clear, easy-to-check outputs that can be used immediately during campaign operations.",
+        "title": "What will clients receive?"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently Asked Questions"
+      },
+      "hero": {
+        "badge": "T2M Services",
+        "description": "T2M supports businesses and agencies across Performance Marketing, Media Planning, Social Media & Seeding, Tracking, Reporting & Automation.",
+        "primaryCta": "Send a brief to T2M",
+        "secondaryCta": "View service groups",
+        "titleHighlight": "clear execution and clear measurement.",
+        "titlePrefix": "Digital marketing services for campaigns that need",
+        "workflowNote": "A lean service workflow for campaigns that need continuous execution, tracking, and optimization."
+      },
+      "pillars": {
+        "badge": "Core Services",
+        "description": "T2M does not try to do everything. We focus on the workstreams that make campaigns clear to execute, track, and optimize.",
+        "outputLabel": "Output",
+        "suitableLabel": "Suitable for",
+        "title": "T2M's 4 core service groups"
+      },
+      "process": {
+        "badge": "Working Process",
+        "description": "A simple, clear workflow suitable for both businesses and agencies that need outsourced execution.",
+        "title": "How T2M delivers services"
+      }
     }
   }
 }

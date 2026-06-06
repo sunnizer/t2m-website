@@ -13,18 +13,27 @@ type Row = {
   en: string;
 };
 
+type ScanStatus = "all" | "missingBoth" | "missingVi" | "missingEn" | "complete";
+
 type ScanCandidate = {
   file: string;
   page: string;
   key: string;
   text: string;
+  fallback: string;
+  source: "tr" | "hardcoded";
+  vi: string;
+  en: string;
+  hasVi: boolean;
+  hasEn: boolean;
+  status: Exclude<ScanStatus, "all">;
 };
 
 function flattenObject(
   obj: Record<string, any>,
   prefix = ""
 ): Record<string, string> {
-  return Object.keys(obj).reduce((acc, key) => {
+  return Object.keys(obj || {}).reduce((acc, key) => {
     const value = obj[key];
     const nextKey = prefix ? `${prefix}.${key}` : key;
 
@@ -39,7 +48,7 @@ function flattenObject(
 }
 
 function setNestedValue(obj: Record<string, any>, path: string, value: string) {
-  const keys = path.split(".");
+  const keys = path.split(".").filter(Boolean);
   let current = obj;
 
   keys.forEach((key, index) => {
@@ -48,7 +57,7 @@ function setNestedValue(obj: Record<string, any>, path: string, value: string) {
       return;
     }
 
-    if (!current[key]) {
+    if (!current[key] || typeof current[key] !== "object") {
       current[key] = {};
     }
 
@@ -70,6 +79,36 @@ function unflattenRows(rows: Row[]): TranslationData {
   return result;
 }
 
+function getStatusLabel(status: ScanCandidate["status"]) {
+  switch (status) {
+    case "missingBoth":
+      return "Thiếu cả hai";
+    case "missingVi":
+      return "Thiếu VI";
+    case "missingEn":
+      return "Thiếu EN";
+    case "complete":
+      return "Đã đủ";
+    default:
+      return status;
+  }
+}
+
+function getStatusClassName(status: ScanCandidate["status"]) {
+  switch (status) {
+    case "missingBoth":
+      return "border-red-200 bg-red-50 text-red-700";
+    case "missingVi":
+      return "border-orange-200 bg-orange-50 text-orange-700";
+    case "missingEn":
+      return "border-amber-200 bg-amber-50 text-amber-700";
+    case "complete":
+      return "border-green-200 bg-green-50 text-green-700";
+    default:
+      return "border-slate-200 bg-slate-50 text-slate-600";
+  }
+}
+
 export default function AdminTranslationsPage() {
   const [rows, setRows] = useState<Row[]>([]);
   const [editable, setEditable] = useState(false);
@@ -85,6 +124,8 @@ export default function AdminTranslationsPage() {
   const [newEn, setNewEn] = useState("");
 
   const [scanPage, setScanPage] = useState("all");
+  const [scanFilter, setScanFilter] = useState<ScanStatus>("missingEn");
+  const [includeHardcoded, setIncludeHardcoded] = useState(false);
   const [scanLoading, setScanLoading] = useState(false);
   const [scanCandidates, setScanCandidates] = useState<ScanCandidate[]>([]);
 
@@ -137,6 +178,27 @@ export default function AdminTranslationsPage() {
       return acc;
     }, {} as Record<string, Row[]>);
   }, [rows]);
+
+  const scanSummary = useMemo(() => {
+    return scanCandidates.reduce(
+      (acc, candidate) => {
+        acc[candidate.status] += 1;
+        return acc;
+      },
+      {
+        missingBoth: 0,
+        missingVi: 0,
+        missingEn: 0,
+        complete: 0,
+      }
+    );
+  }, [scanCandidates]);
+
+  const filteredScanCandidates = useMemo(() => {
+    if (scanFilter === "all") return scanCandidates;
+
+    return scanCandidates.filter((candidate) => candidate.status === scanFilter);
+  }, [scanCandidates, scanFilter]);
 
   function updateRow(indexKey: string, field: "vi" | "en", value: string) {
     setRows((current) =>
@@ -234,7 +296,13 @@ export default function AdminTranslationsPage() {
     setMessage("");
 
     try {
-      const res = await fetch(`/api/admin/scan-texts?page=${scanPage}`);
+      const query = new URLSearchParams({ page: scanPage });
+
+      if (includeHardcoded) {
+        query.set("includeHardcoded", "1");
+      }
+
+      const res = await fetch(`/api/admin/scan-texts?${query.toString()}`);
       const json = await res.json();
 
       if (!json.ok) {
@@ -242,16 +310,11 @@ export default function AdminTranslationsPage() {
         return;
       }
 
-      const existingKeys = new Set(rows.map((row) => row.key));
+      setScanCandidates(json.candidates || []);
 
-      const filteredCandidates = json.candidates.filter(
-        (item: ScanCandidate) => !existingKeys.has(item.key)
-      );
-
-      setScanCandidates(filteredCandidates);
-
+      const summary = json.summary || {};
       setMessage(
-        `Đã quét được ${json.count} nội dung. Còn ${filteredCandidates.length} nội dung chưa có trong translations.`
+        `Đã quét ${json.count || 0} key. Thiếu VI: ${summary.missingVi || 0}, thiếu EN: ${summary.missingEn || 0}, thiếu cả hai: ${summary.missingBoth || 0}, đã đủ: ${summary.complete || 0}.`
       );
     } catch (error) {
       setMessage("Có lỗi khi quét nội dung.");
@@ -273,72 +336,104 @@ export default function AdminTranslationsPage() {
     );
   }
 
-  function addScanCandidate(candidate: ScanCandidate) {
+  function upsertScanCandidate(candidate: ScanCandidate, target: "vi" | "en" | "both") {
     const key = candidate.key.trim();
 
     if (!key) {
       setMessage("Key không được để trống.");
-      return;
+      return false;
     }
 
     if (!key.includes(".")) {
       setMessage("Key nên có dạng group.name, ví dụ: home.hero.title.");
-      return;
+      return false;
     }
 
-    const existed = rows.some((row) => row.key === key);
+    const text = candidate.text || candidate.fallback;
 
-    if (existed) {
-      setMessage("Key này đã tồn tại.");
-      return;
-    }
+    setRows((current) => {
+      const existed = current.some((row) => row.key === key);
 
-    setRows((current) =>
-      [
+      if (existed) {
+        return current
+          .map((row) => {
+            if (row.key !== key) return row;
+
+            return {
+              ...row,
+              vi: target === "vi" || target === "both" ? row.vi || text : row.vi,
+              en: target === "en" || target === "both" ? row.en || text : row.en,
+            };
+          })
+          .sort((a, b) => a.key.localeCompare(b.key));
+      }
+
+      return [
         ...current,
         {
           key,
-          vi: candidate.text,
-          en: "",
+          vi: target === "vi" || target === "both" ? text : "",
+          en: target === "en" || target === "both" ? text : "",
         },
-      ].sort((a, b) => a.key.localeCompare(b.key))
-    );
+      ].sort((a, b) => a.key.localeCompare(b.key));
+    });
 
     setScanCandidates((current) =>
-      current.filter((item) => item !== candidate)
+      current.map((item) => {
+        if (item !== candidate) return item;
+
+        const hasVi = target === "vi" || target === "both" ? true : item.hasVi;
+        const hasEn = target === "en" || target === "both" ? true : item.hasEn;
+        const status = !hasVi && !hasEn
+          ? "missingBoth"
+          : !hasVi
+            ? "missingVi"
+            : !hasEn
+              ? "missingEn"
+              : "complete";
+
+        return {
+          ...item,
+          hasVi,
+          hasEn,
+          vi: hasVi ? item.vi || text : item.vi,
+          en: hasEn ? item.en || text : item.en,
+          status,
+        };
+      })
     );
 
-    setMessage("Đã thêm nội dung vào danh sách. Anh nhớ bấm Lưu thay đổi.");
+    return true;
   }
 
-  function addAllScanCandidates() {
-    if (scanCandidates.length === 0) {
-      setMessage("Không có nội dung quét nào để thêm.");
+  function addScanCandidate(candidate: ScanCandidate, target: "vi" | "en" | "both") {
+    const ok = upsertScanCandidate(candidate, target);
+
+    if (!ok) return;
+
+    const label = target === "vi" ? "VI" : target === "en" ? "EN" : "VI và EN";
+    setMessage(`Đã thêm ${label} cho key ${candidate.key}. Anh nhớ bấm Lưu thay đổi.`);
+  }
+
+  function addAllScanCandidates(target: "vi" | "en" | "both") {
+    const candidatesToAdd = filteredScanCandidates.filter((candidate) => {
+      if (target === "vi") return !candidate.hasVi;
+      if (target === "en") return !candidate.hasEn;
+      return !candidate.hasVi || !candidate.hasEn;
+    });
+
+    if (candidatesToAdd.length === 0) {
+      setMessage("Không có key phù hợp để thêm theo bộ lọc hiện tại.");
       return;
     }
 
-    const existingKeys = new Set(rows.map((row) => row.key));
+    candidatesToAdd.forEach((candidate) => {
+      upsertScanCandidate(candidate, target);
+    });
 
-    const newRows = scanCandidates
-      .filter((candidate) => candidate.key.trim() && !existingKeys.has(candidate.key))
-      .map((candidate) => ({
-        key: candidate.key.trim(),
-        vi: candidate.text,
-        en: "",
-      }));
-
-    if (newRows.length === 0) {
-      setMessage("Các key quét được đều đã tồn tại hoặc không hợp lệ.");
-      return;
-    }
-
-    setRows((current) =>
-      [...current, ...newRows].sort((a, b) => a.key.localeCompare(b.key))
-    );
-
-    setScanCandidates([]);
+    const label = target === "vi" ? "VI" : target === "en" ? "EN" : "VI và EN";
     setMessage(
-      `Đã thêm ${newRows.length} nội dung vào danh sách. Anh nhớ bấm Lưu thay đổi.`
+      `Đã thêm ${label} cho ${candidatesToAdd.length} key. Anh nhớ bấm Lưu thay đổi.`
     );
   }
 
@@ -352,7 +447,6 @@ export default function AdminTranslationsPage() {
 
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-10 text-slate-950">
-      {/* Floating save bar */}
       <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full border border-slate-200 bg-white/90 p-2 shadow-2xl shadow-slate-900/15 backdrop-blur-xl">
         <button
           type="button"
@@ -372,7 +466,6 @@ export default function AdminTranslationsPage() {
       </div>
 
       <div className="mx-auto max-w-6xl">
-        {/* Header card */}
         <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-blue-600">
             T2M Local Admin
@@ -419,111 +512,201 @@ export default function AdminTranslationsPage() {
           </div>
         </div>
 
-        {/* Scan website text */}
         <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-blue-600">
             Quét nội dung website
           </p>
 
           <h2 className="text-2xl font-bold tracking-tight">
-            Tự bắt text đang có trong source
+            Kiểm tra key tr() và trạng thái VI / EN
           </h2>
 
           <p className="mt-2 text-sm leading-6 text-slate-600">
-            Module này quét các file <span className="font-mono">.tsx</span>{" "}
-            trong <span className="font-mono">app</span> và{" "}
-            <span className="font-mono">components</span>, tìm text đang viết
-            cứng rồi gợi ý key để thêm vào translations. Chỉ chạy ở local.
+            Module này quét format <span className="font-mono">tr("key", "fallback")</span>{" "}
+            trong source code, rồi so với <span className="font-mono">data/i18n.json</span>{" "}
+            để biết key nào thiếu Tiếng Việt hoặc English. Có thể bật thêm chế
+            độ quét text hardcode để rà soát phần còn sót.
           </p>
 
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-5 grid gap-3 lg:grid-cols-[180px_180px_1fr]">
             <select
               value={scanPage}
               onChange={(event) => setScanPage(event.target.value)}
               disabled={!editable || scanLoading}
               className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-sm font-bold text-slate-700 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100 disabled:bg-slate-50"
             >
-              <option value="all">Tất cả</option>
+              <option value="all">Tất cả page</option>
               <option value="home">Home</option>
               <option value="services">Services</option>
               <option value="caseStudies">Case Studies</option>
               <option value="contact">Contact</option>
-              <option value="insights">Insights</option>
               <option value="nav">Navigation</option>
               <option value="footer">Footer</option>
+              <option value="layout">Layout / Metadata</option>
               <option value="common">Common</option>
             </select>
 
-            <button
-              type="button"
-              onClick={scanTexts}
+            <select
+              value={scanFilter}
+              onChange={(event) => setScanFilter(event.target.value as ScanStatus)}
               disabled={!editable || scanLoading}
-              className="h-12 rounded-full bg-slate-950 px-6 text-sm font-bold text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-sm font-bold text-slate-700 outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100 disabled:bg-slate-50"
             >
-              {scanLoading ? "Đang quét..." : "Quét nội dung"}
-            </button>
+              <option value="all">Tất cả trạng thái</option>
+              <option value="missingBoth">Thiếu cả hai</option>
+              <option value="missingVi">Thiếu VI</option>
+              <option value="missingEn">Thiếu EN</option>
+              <option value="complete">Đã đủ</option>
+            </select>
 
-            <button
-              type="button"
-              onClick={addAllScanCandidates}
-              disabled={!editable || scanCandidates.length === 0}
-              className="h-12 rounded-full border border-blue-200 bg-blue-50 px-6 text-sm font-bold text-blue-700 transition hover:border-blue-300 hover:bg-blue-100 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-300"
-            >
-              Thêm tất cả
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={scanTexts}
+                disabled={!editable || scanLoading}
+                className="h-12 rounded-full bg-slate-950 px-6 text-sm font-bold text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-slate-300"
+              >
+                {scanLoading ? "Đang quét..." : "Quét nội dung"}
+              </button>
+
+              <label className="flex h-12 cursor-pointer items-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-bold text-slate-600">
+                <input
+                  type="checkbox"
+                  checked={includeHardcoded}
+                  onChange={(event) => setIncludeHardcoded(event.target.checked)}
+                  disabled={!editable || scanLoading}
+                  className="h-4 w-4"
+                />
+                Quét thêm hardcode
+              </label>
+            </div>
           </div>
 
           {scanCandidates.length > 0 && (
-            <div className="mt-6 overflow-hidden rounded-3xl border border-slate-200">
-              <div className="grid bg-slate-50 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] text-slate-400 lg:grid-cols-[120px_260px_1fr_110px]">
-                <div>Page</div>
-                <div>Key gợi ý</div>
-                <div>Nội dung bắt được</div>
-                <div></div>
+            <>
+              <div className="mt-5 grid gap-3 sm:grid-cols-4">
+                <div className="rounded-2xl border border-red-100 bg-red-50 p-4 text-sm font-bold text-red-700">
+                  Thiếu cả hai: {scanSummary.missingBoth}
+                </div>
+                <div className="rounded-2xl border border-orange-100 bg-orange-50 p-4 text-sm font-bold text-orange-700">
+                  Thiếu VI: {scanSummary.missingVi}
+                </div>
+                <div className="rounded-2xl border border-amber-100 bg-amber-50 p-4 text-sm font-bold text-amber-700">
+                  Thiếu EN: {scanSummary.missingEn}
+                </div>
+                <div className="rounded-2xl border border-green-100 bg-green-50 p-4 text-sm font-bold text-green-700">
+                  Đã đủ: {scanSummary.complete}
+                </div>
               </div>
 
-              <div className="divide-y divide-slate-100">
-                {scanCandidates.map((candidate) => (
-                  <div
-                    key={`${candidate.file}-${candidate.key}-${candidate.text}`}
-                    className="grid gap-3 px-4 py-4 lg:grid-cols-[120px_260px_1fr_110px]"
-                  >
-                    <div className="text-sm font-bold text-blue-600">
-                      {candidate.page}
-                    </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => addAllScanCandidates("vi")}
+                  disabled={!editable || filteredScanCandidates.length === 0}
+                  className="h-11 rounded-full border border-blue-200 bg-blue-50 px-5 text-xs font-bold text-blue-700 transition hover:border-blue-300 hover:bg-blue-100 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-300"
+                >
+                  Thêm VI cho danh sách đang lọc
+                </button>
+                <button
+                  type="button"
+                  onClick={() => addAllScanCandidates("en")}
+                  disabled={!editable || filteredScanCandidates.length === 0}
+                  className="h-11 rounded-full border border-cyan-200 bg-cyan-50 px-5 text-xs font-bold text-cyan-700 transition hover:border-cyan-300 hover:bg-cyan-100 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-50 disabled:text-slate-300"
+                >
+                  Thêm EN cho danh sách đang lọc
+                </button>
+                <button
+                  type="button"
+                  onClick={() => addAllScanCandidates("both")}
+                  disabled={!editable || filteredScanCandidates.length === 0}
+                  className="h-11 rounded-full border border-slate-200 bg-slate-950 px-5 text-xs font-bold text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-slate-300"
+                >
+                  Thêm cả hai cho danh sách đang lọc
+                </button>
+              </div>
 
-                    <input
-                      value={candidate.key}
-                      onChange={(event) =>
-                        updateScanCandidateKey(candidate, event.target.value)
-                      }
-                      className="rounded-xl border border-slate-200 px-3 py-2 font-mono text-xs outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-                    />
+              <div className="mt-6 overflow-hidden rounded-3xl border border-slate-200">
+                <div className="grid bg-slate-50 px-4 py-3 text-xs font-bold uppercase tracking-[0.16em] text-slate-400 lg:grid-cols-[100px_120px_260px_1fr_210px]">
+                  <div>Page</div>
+                  <div>Trạng thái</div>
+                  <div>Key</div>
+                  <div>Fallback / Source</div>
+                  <div></div>
+                </div>
 
-                    <div>
-                      <p className="text-sm leading-6 text-slate-700">
-                        {candidate.text}
-                      </p>
-                      <p className="mt-1 font-mono text-xs text-slate-400">
-                        {candidate.file}
-                      </p>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => addScanCandidate(candidate)}
-                      className="h-10 rounded-full bg-blue-600 px-4 text-xs font-bold text-white transition hover:bg-blue-700"
+                <div className="divide-y divide-slate-100">
+                  {filteredScanCandidates.map((candidate) => (
+                    <div
+                      key={`${candidate.file}-${candidate.key}-${candidate.text}`}
+                      className="grid gap-3 px-4 py-4 lg:grid-cols-[100px_120px_260px_1fr_210px]"
                     >
-                      Thêm
-                    </button>
-                  </div>
-                ))}
+                      <div className="text-sm font-bold text-blue-600">
+                        {candidate.page}
+                      </div>
+
+                      <div>
+                        <span
+                          className={`inline-flex rounded-full border px-3 py-1 text-xs font-bold ${getStatusClassName(candidate.status)}`}
+                        >
+                          {getStatusLabel(candidate.status)}
+                        </span>
+                        <p className="mt-2 text-xs font-semibold text-slate-400">
+                          {candidate.source === "tr" ? "tr()" : "Hardcode"}
+                        </p>
+                      </div>
+
+                      <input
+                        value={candidate.key}
+                        onChange={(event) =>
+                          updateScanCandidateKey(candidate, event.target.value)
+                        }
+                        className="h-11 rounded-xl border border-slate-200 px-3 py-2 font-mono text-xs outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+                      />
+
+                      <div>
+                        <p className="whitespace-pre-wrap text-sm leading-6 text-slate-700">
+                          {candidate.text}
+                        </p>
+                        <p className="mt-1 font-mono text-xs text-slate-400">
+                          {candidate.file}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => addScanCandidate(candidate, "vi")}
+                          disabled={!editable || candidate.hasVi}
+                          className="h-9 rounded-full bg-blue-600 px-3 text-xs font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                        >
+                          Thêm VI
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => addScanCandidate(candidate, "en")}
+                          disabled={!editable || candidate.hasEn}
+                          className="h-9 rounded-full bg-cyan-600 px-3 text-xs font-bold text-white transition hover:bg-cyan-700 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                        >
+                          Thêm EN
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => addScanCandidate(candidate, "both")}
+                          disabled={!editable || (candidate.hasVi && candidate.hasEn)}
+                          className="h-9 rounded-full bg-slate-950 px-3 text-xs font-bold text-white transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400"
+                        >
+                          Cả hai
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </>
           )}
         </div>
 
-        {/* Add new key */}
         <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-blue-600">
             Thêm nội dung mới
@@ -594,7 +777,6 @@ export default function AdminTranslationsPage() {
           </div>
         </div>
 
-        {/* Current translation rows */}
         <div className="space-y-8 pb-28">
           {Object.entries(groupedRows).map(([group, groupRows]) => (
             <section
@@ -615,6 +797,18 @@ export default function AdminTranslationsPage() {
                       <p className="font-mono text-sm font-bold text-slate-700">
                         {row.key}
                       </p>
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {!row.vi.trim() && (
+                          <span className="rounded-full bg-orange-50 px-2 py-1 text-[10px] font-bold text-orange-600">
+                            Thiếu VI
+                          </span>
+                        )}
+                        {!row.en.trim() && (
+                          <span className="rounded-full bg-amber-50 px-2 py-1 text-[10px] font-bold text-amber-600">
+                            Thiếu EN
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     <div>

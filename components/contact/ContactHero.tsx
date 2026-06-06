@@ -1,5 +1,8 @@
+"use client";
+
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import {
   ArrowRight,
   Mail,
@@ -11,23 +14,34 @@ import {
 
 const contactCards = [
   {
-    title: "Gửi brief",
-    description: "Phù hợp khi anh/chị đã có campaign hoặc nhu cầu sơ bộ.",
+    titleKey: "contact.hero.cards.brief.title",
+    titleFallback: "Gửi brief",
+    descriptionKey: "contact.hero.cards.brief.description",
+    descriptionFallback:
+      "Phù hợp khi anh/chị đã có campaign hoặc nhu cầu sơ bộ.",
     icon: Send,
   },
   {
-    title: "Nhắn Zalo",
-    description: "Trao đổi nhanh scope, timeline hoặc ngân sách dự kiến.",
+    titleKey: "contact.hero.cards.zalo.title",
+    titleFallback: "Nhắn Zalo",
+    descriptionKey: "contact.hero.cards.zalo.description",
+    descriptionFallback:
+      "Trao đổi nhanh scope, timeline hoặc ngân sách dự kiến.",
     icon: MessageCircle,
   },
   {
-    title: "Gửi email",
-    description: "Gửi proposal, brief, file plan hoặc thông tin dự án.",
+    titleKey: "contact.hero.cards.email.title",
+    titleFallback: "Gửi email",
+    descriptionKey: "contact.hero.cards.email.description",
+    descriptionFallback:
+      "Gửi proposal, brief, file plan hoặc thông tin dự án.",
     icon: Mail,
   },
 ];
 
 export default function ContactHero() {
+  const { tr } = useLanguage();
+
   return (
     <section className="relative overflow-hidden bg-slate-50 py-16 text-slate-950 sm:py-20 lg:py-24">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.12),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(34,211,238,0.18),transparent_34%)]" />
@@ -37,20 +51,21 @@ export default function ContactHero() {
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.24em] text-blue-600 shadow-sm">
               <Sparkles className="h-3.5 w-3.5" />
-              Contact T2M
+              {tr("contact.hero.badge", "Contact T2M")}
             </div>
 
             <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-              Gửi brief hoặc nhu cầu{" "}
+              {tr("contact.hero.titlePrefix", "Gửi brief hoặc nhu cầu")}{" "}
               <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                cần triển khai
+                {tr("contact.hero.titleHighlight", "cần triển khai")}
               </span>
             </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-              Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ động
-              liên hệ lại để làm rõ mục tiêu, phạm vi công việc, timeline và
-              phương án triển khai phù hợp.
+              {tr(
+                "contact.hero.description",
+                "Anh/chị để lại thông tin ngắn gọn. T2M sẽ xem nhu cầu và chủ động liên hệ lại để làm rõ mục tiêu, phạm vi công việc, timeline và phương án triển khai phù hợp."
+              )}
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -59,7 +74,7 @@ export default function ContactHero() {
                 size="lg"
                 className="w-full bg-blue-600 text-white shadow-[0_16px_32px_rgba(37,99,235,0.20)] hover:bg-blue-500 sm:w-auto"
               >
-                Điền form liên hệ
+                {tr("contact.hero.primaryCta", "Điền form liên hệ")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
 
@@ -70,19 +85,21 @@ export default function ContactHero() {
                 className="w-full border-blue-200 bg-white/80 text-blue-700 hover:border-blue-400 hover:bg-white sm:w-auto"
               >
                 <Mail className="mr-2 h-4 w-4" />
-                Gửi email
+                {tr("contact.hero.secondaryCta", "Gửi email")}
               </Button>
             </div>
 
             <div className="mt-8 grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-blue-600" />
-                <span>Zalo: [Điền số Zalo]</span>
+                <span>{tr("contact.hero.zalo", "Zalo: [Điền số Zalo]")}</span>
               </div>
 
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-blue-600" />
-                <span>Email: contact@t2m.vn</span>
+                <span>
+                  {tr("contact.hero.email", "Email: contact@t2m.vn")}
+                </span>
               </div>
             </div>
           </div>
@@ -93,7 +110,7 @@ export default function ContactHero() {
 
               return (
                 <div
-                  key={card.title}
+                  key={card.titleKey}
                   className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.07)]"
                 >
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-blue-500/20">
@@ -101,11 +118,11 @@ export default function ContactHero() {
                   </div>
 
                   <h3 className="mt-5 text-lg font-bold text-slate-950">
-                    {card.title}
+                    {tr(card.titleKey, card.titleFallback)}
                   </h3>
 
                   <p className="mt-2 text-sm leading-6 text-slate-600">
-                    {card.description}
+                    {tr(card.descriptionKey, card.descriptionFallback)}
                   </p>
                 </div>
               );

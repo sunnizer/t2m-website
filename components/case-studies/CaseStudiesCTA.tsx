@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Container from "@/components/layout/Container";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 import {
   CheckCircle2,
   ClipboardEdit,
@@ -12,23 +13,78 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const services = [
-  "Event / Campaign Support",
-  "Social Media & Seeding",
-  "Performance Marketing",
-  "Media Planning",
-  "Tracking, Report & Automation",
-  "Chưa chắc, cần T2M tư vấn",
+const serviceOptions = [
+  {
+    key: "caseStudies.cta.form.service.options.eventCampaignSupport",
+    fallback: "Event / Campaign Support",
+  },
+  {
+    key: "caseStudies.cta.form.service.options.socialMediaSeeding",
+    fallback: "Social Media & Seeding",
+  },
+  {
+    key: "caseStudies.cta.form.service.options.performanceMarketing",
+    fallback: "Performance Marketing",
+  },
+  {
+    key: "caseStudies.cta.form.service.options.mediaPlanning",
+    fallback: "Media Planning",
+  },
+  {
+    key: "caseStudies.cta.form.service.options.trackingReportAutomation",
+    fallback: "Tracking, Report & Automation",
+  },
+  {
+    key: "caseStudies.cta.form.service.options.needConsulting",
+    fallback: "Chưa chắc, cần T2M tư vấn",
+  },
 ];
 
-const checklist = [
-  "Tư vấn theo loại campaign / event",
-  "Làm rõ scope trước khi báo giá",
-  "Có thể hỗ trợ brand hoặc agency",
-  "Tập trung social activation, seeding, tracking & reporting",
+const checklistItems = [
+  {
+    key: "caseStudies.cta.checklist.campaignConsulting",
+    fallback: "Tư vấn theo loại campaign / event",
+  },
+  {
+    key: "caseStudies.cta.checklist.scopeClarification",
+    fallback: "Làm rõ scope trước khi báo giá",
+  },
+  {
+    key: "caseStudies.cta.checklist.brandAgencySupport",
+    fallback: "Có thể hỗ trợ brand hoặc agency",
+  },
+  {
+    key: "caseStudies.cta.checklist.executionFocus",
+    fallback: "Tập trung social activation, seeding, tracking & reporting",
+  },
+];
+
+const actionCards = [
+  {
+    icon: ClipboardEdit,
+    titleKey: "caseStudies.cta.cards.brief.title",
+    titleFallback: "Gửi brief",
+    descriptionKey: "caseStudies.cta.cards.brief.description",
+    descriptionFallback: "Cho campaign hoặc event cần hỗ trợ.",
+  },
+  {
+    icon: MessageCircle,
+    titleKey: "caseStudies.cta.cards.scope.title",
+    titleFallback: "Làm rõ scope",
+    descriptionKey: "caseStudies.cta.cards.scope.description",
+    descriptionFallback: "Xác định hạng mục T2M có thể hỗ trợ.",
+  },
+  {
+    icon: Mail,
+    titleKey: "caseStudies.cta.cards.response.title",
+    titleFallback: "Nhận phản hồi",
+    descriptionKey: "caseStudies.cta.cards.response.description",
+    descriptionFallback: "T2M chủ động liên hệ lại.",
+  },
 ];
 
 export default function CaseStudiesCTA() {
+  const { tr } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -45,18 +101,32 @@ export default function CaseStudiesCTA() {
     const message = String(formData.get("message") || "");
 
     const subject = encodeURIComponent(
-      `Brief campaign từ trang Case Studies T2M - ${company || name}`
+      tr(
+        "caseStudies.cta.email.subject",
+        "Brief campaign từ trang Case Studies T2M - {{client}}",
+        {
+          client:
+            company ||
+            name ||
+            tr("caseStudies.cta.email.defaultClient", "Khách hàng"),
+        }
+      )
     );
 
     const body = encodeURIComponent(
-      `Thông tin khách hàng:\n\n` +
-        `Họ tên: ${name}\n` +
-        `Công ty: ${company}\n` +
-        `SĐT/Zalo: ${phone}\n` +
-        `Email: ${email}\n` +
-        `Dịch vụ quan tâm: ${service}\n` +
-        `Ngân sách dự kiến: ${budget}\n\n` +
-        `Nội dung brief:\n${message}\n`
+      tr(
+        "caseStudies.cta.email.body",
+        "Thông tin khách hàng:\n\nHọ tên: {{name}}\nCông ty: {{company}}\nSĐT/Zalo: {{phone}}\nEmail: {{email}}\nDịch vụ quan tâm: {{service}}\nNgân sách dự kiến: {{budget}}\n\nNội dung brief:\n{{message}}\n",
+        {
+          name,
+          company,
+          phone,
+          email,
+          service,
+          budget,
+          message,
+        }
+      )
     );
 
     window.location.href = `mailto:contact@t2m.vn?subject=${subject}&body=${body}`;
@@ -77,65 +147,58 @@ export default function CaseStudiesCTA() {
               <div className="relative">
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.24em] text-blue-600 shadow-sm">
                   <Sparkles className="h-3.5 w-3.5" />
-                  Work with T2M
+                  {tr("caseStudies.cta.badge", "Work with T2M")}
                 </div>
 
                 <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-                  Cần một partner triển khai{" "}
+                  {tr(
+                    "caseStudies.cta.titlePrefix",
+                    "Cần một partner triển khai"
+                  )}{" "}
                   <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                    campaign?
+                    {tr("caseStudies.cta.titleHighlight", "campaign?")}
                   </span>
                 </h2>
 
                 <p className="mt-5 max-w-xl text-base leading-8 text-slate-600">
-                  Nếu anh/chị đang có event, campaign social, seeding hoặc cần
-                  hỗ trợ execution/reporting, hãy để lại thông tin. T2M sẽ chủ
-                  động liên hệ lại để làm rõ nhu cầu.
+                  {tr(
+                    "caseStudies.cta.description",
+                    "Nếu anh/chị đang có event, campaign social, seeding hoặc cần hỗ trợ execution/reporting, hãy để lại thông tin. T2M sẽ chủ động liên hệ lại để làm rõ nhu cầu."
+                  )}
                 </p>
 
                 <div className="mt-8 grid gap-3">
-                  {checklist.map((item) => (
-                    <div key={item} className="flex items-center gap-3">
+                  {checklistItems.map((item) => (
+                    <div key={item.key} className="flex items-center gap-3">
                       <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white">
                         <CheckCircle2 className="h-4 w-4" />
                       </div>
                       <span className="text-sm font-medium text-slate-700">
-                        {item}
+                        {tr(item.key, item.fallback)}
                       </span>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm">
-                    <ClipboardEdit className="h-5 w-5 text-blue-600" />
-                    <p className="mt-3 text-sm font-bold text-slate-950">
-                      Gửi brief
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Cho campaign hoặc event cần hỗ trợ.
-                    </p>
-                  </div>
+                  {actionCards.map((card) => {
+                    const Icon = card.icon;
 
-                  <div className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm">
-                    <MessageCircle className="h-5 w-5 text-blue-600" />
-                    <p className="mt-3 text-sm font-bold text-slate-950">
-                      Làm rõ scope
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      Xác định hạng mục T2M có thể hỗ trợ.
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm">
-                    <Mail className="h-5 w-5 text-blue-600" />
-                    <p className="mt-3 text-sm font-bold text-slate-950">
-                      Nhận phản hồi
-                    </p>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      T2M chủ động liên hệ lại.
-                    </p>
-                  </div>
+                    return (
+                      <div
+                        key={card.titleKey}
+                        className="rounded-2xl border border-blue-100 bg-white/80 p-4 shadow-sm"
+                      >
+                        <Icon className="h-5 w-5 text-blue-600" />
+                        <p className="mt-3 text-sm font-bold text-slate-950">
+                          {tr(card.titleKey, card.titleFallback)}
+                        </p>
+                        <p className="mt-1 text-xs leading-5 text-slate-500">
+                          {tr(card.descriptionKey, card.descriptionFallback)}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -145,23 +208,32 @@ export default function CaseStudiesCTA() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Họ tên
+                      {tr("caseStudies.cta.form.name.label", "Họ tên")}
                     </label>
                     <input
                       name="name"
                       required
-                      placeholder="Anh/chị tên gì?"
+                      placeholder={tr(
+                        "caseStudies.cta.form.name.placeholder",
+                        "Anh/chị tên gì?"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Công ty / Brand
+                      {tr(
+                        "caseStudies.cta.form.company.label",
+                        "Công ty / Brand"
+                      )}
                     </label>
                     <input
                       name="company"
-                      placeholder="Tên công ty / brand"
+                      placeholder={tr(
+                        "caseStudies.cta.form.company.placeholder",
+                        "Tên công ty / brand"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
@@ -170,24 +242,30 @@ export default function CaseStudiesCTA() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      SĐT / Zalo
+                      {tr("caseStudies.cta.form.phone.label", "SĐT / Zalo")}
                     </label>
                     <input
                       name="phone"
                       required
-                      placeholder="Số để T2M liên hệ"
+                      placeholder={tr(
+                        "caseStudies.cta.form.phone.placeholder",
+                        "Số để T2M liên hệ"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Email
+                      {tr("caseStudies.cta.form.email.label", "Email")}
                     </label>
                     <input
                       name="email"
                       type="email"
-                      placeholder="Email nhận phản hồi"
+                      placeholder={tr(
+                        "caseStudies.cta.form.email.placeholder",
+                        "Email nhận phản hồi"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
@@ -196,7 +274,10 @@ export default function CaseStudiesCTA() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Nhu cầu quan tâm
+                      {tr(
+                        "caseStudies.cta.form.service.label",
+                        "Nhu cầu quan tâm"
+                      )}
                     </label>
                     <select
                       name="service"
@@ -204,23 +285,36 @@ export default function CaseStudiesCTA() {
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     >
                       <option value="" disabled>
-                        Chọn nhu cầu
+                        {tr(
+                          "caseStudies.cta.form.service.placeholder",
+                          "Chọn nhu cầu"
+                        )}
                       </option>
-                      {services.map((service) => (
-                        <option key={service} value={service}>
-                          {service}
-                        </option>
-                      ))}
+                      {serviceOptions.map((service) => {
+                        const serviceLabel = tr(service.key, service.fallback);
+
+                        return (
+                          <option key={service.key} value={serviceLabel}>
+                            {serviceLabel}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
 
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
-                      Ngân sách dự kiến
+                      {tr(
+                        "caseStudies.cta.form.budget.label",
+                        "Ngân sách dự kiến"
+                      )}
                     </label>
                     <input
                       name="budget"
-                      placeholder="VD: 50tr / 100tr / chưa rõ"
+                      placeholder={tr(
+                        "caseStudies.cta.form.budget.placeholder",
+                        "VD: 50tr / 100tr / chưa rõ"
+                      )}
                       className="h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                     />
                   </div>
@@ -228,13 +322,19 @@ export default function CaseStudiesCTA() {
 
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700">
-                    Mô tả nhanh campaign / event
+                    {tr(
+                      "caseStudies.cta.form.message.label",
+                      "Mô tả nhanh campaign / event"
+                    )}
                   </label>
                   <textarea
                     name="message"
                     rows={5}
                     required
-                    placeholder="Anh/chị mô tả ngắn về event/campaign, mục tiêu, timeline hoặc hạng mục cần T2M hỗ trợ..."
+                    placeholder={tr(
+                      "caseStudies.cta.form.message.placeholder",
+                      "Anh/chị mô tả ngắn về event/campaign, mục tiêu, timeline hoặc hạng mục cần T2M hỗ trợ..."
+                    )}
                     className="w-full resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                   />
                 </div>
@@ -243,32 +343,46 @@ export default function CaseStudiesCTA() {
                   type="submit"
                   className="inline-flex h-12 w-full items-center justify-center rounded-full bg-blue-600 px-6 text-sm font-bold text-white shadow-[0_16px_32px_rgba(37,99,235,0.22)] transition hover:bg-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-100"
                 >
-                  Gửi thông tin cho T2M
+                  {tr(
+                    "caseStudies.cta.form.submit",
+                    "Gửi thông tin cho T2M"
+                  )}
                   <Send className="ml-2 h-4 w-4" />
                 </button>
 
                 {isSubmitted && (
                   <div className="rounded-2xl border border-green-100 bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
-                    Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra
-                    lại và bấm gửi.
+                    {tr(
+                      "caseStudies.cta.form.success",
+                      "Thông tin đã được tạo trong email. Anh/chị chỉ cần kiểm tra lại và bấm gửi."
+                    )}
                   </div>
                 )}
 
                 <div className="grid gap-3 pt-2 text-sm text-slate-500 sm:grid-cols-2">
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-blue-600" />
-                    <span>Zalo: [Điền số Zalo]</span>
+                    <span>
+                      {tr("caseStudies.cta.contact.zalo", "Zalo: [Điền số Zalo]")}
+                    </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4 text-blue-600" />
-                    <span>Email: contact@t2m.vn</span>
+                    <span>
+                      {tr(
+                        "caseStudies.cta.contact.email",
+                        "Email: contact@t2m.vn"
+                      )}
+                    </span>
                   </div>
                 </div>
 
                 <p className="text-xs leading-5 text-slate-400">
-                  T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu
-                  của anh/chị. Không dùng cho mục đích spam.
+                  {tr(
+                    "caseStudies.cta.privacyNote",
+                    "T2M sẽ sử dụng thông tin này để liên hệ tư vấn theo nhu cầu của anh/chị. Không dùng cho mục đích spam."
+                  )}
                 </p>
               </form>
             </div>
