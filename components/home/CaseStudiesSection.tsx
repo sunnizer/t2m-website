@@ -1,452 +1,271 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useMemo, useState } from "react";
 import Container from "@/components/layout/Container";
-import Button from "@/components/ui/Button";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import {
-  ArrowRight,
-  CheckCircle2,
-  ImageIcon,
-  Sparkles,
+  BarChart3,
+  ClipboardCheck,
+  LineChart,
+  MessageSquareText,
+  Rocket,
+  ShieldCheck,
+  UsersRound,
+  type LucideIcon,
 } from "lucide-react";
+import {
+  defaultCaseStudiesData,
+  type CaseStudiesData,
+  type CaseStudyItem,
+  type CaseStudyMetricIcon,
+} from "@/lib/caseStudiesData";
 
-const events = [
+type TranslatedText = {
+  key: string;
+  fallback: string;
+};
+
+type ImpactMetric = {
+  value: TranslatedText;
+  label: TranslatedText;
+  icon: LucideIcon;
+};
+
+const maxHomepageCaseStudies = 6;
+
+const impactMetrics: ImpactMetric[] = [
   {
-    nameKey: "home.caseStudies.events.songMotDoiCoLai.name",
-    nameFallback: "Sống 1 đời có lãi",
-    categoryKey: "home.caseStudies.events.songMotDoiCoLai.category",
-    categoryFallback: "Social Campaign / Community",
-    titleKey: "home.caseStudies.events.songMotDoiCoLai.title",
-    titleFallback: "Social Seeding & Campaign Amplification",
-    roleKey: "home.caseStudies.events.songMotDoiCoLai.role",
-    roleFallback:
-      "Comment seeding • Community discussion • Engagement support",
-    image: "/cases/song-1-doi-co-lai.jpg",
-    tags: [
-      {
-        key: "home.caseStudies.events.songMotDoiCoLai.tags.social",
-        fallback: "Social",
-      },
-      {
-        key: "home.caseStudies.events.songMotDoiCoLai.tags.community",
-        fallback: "Community",
-      },
-      {
-        key: "home.caseStudies.events.songMotDoiCoLai.tags.seeding",
-        fallback: "Seeding",
-      },
-    ],
-    metrics: [
-      {
-        labelKey:
-          "home.caseStudies.events.songMotDoiCoLai.metrics.discussion.label",
-        labelFallback: "Discussion",
-        valueKey:
-          "home.caseStudies.events.songMotDoiCoLai.metrics.discussion.value",
-        valueFallback: "Active",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.songMotDoiCoLai.metrics.signal.label",
-        labelFallback: "Signal",
-        valueKey:
-          "home.caseStudies.events.songMotDoiCoLai.metrics.signal.value",
-        valueFallback: "Tracked",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.songMotDoiCoLai.metrics.report.label",
-        labelFallback: "Report",
-        valueKey:
-          "home.caseStudies.events.songMotDoiCoLai.metrics.report.value",
-        valueFallback: "Clear",
-      },
-    ],
+    value: {
+      key: "home.caseStudies.impact.campaigns.value",
+      fallback: "30+",
+    },
+    label: {
+      key: "home.caseStudies.impact.campaigns.label",
+      fallback: "chiến dịch / sự kiện đã hỗ trợ",
+    },
+    icon: Rocket,
   },
   {
-    nameKey: "home.caseStudies.events.vinhQuangCongAnNhanDan.name",
-    nameFallback: "Vinh quang Công an nhân dân",
-    categoryKey: "home.caseStudies.events.vinhQuangCongAnNhanDan.category",
-    categoryFallback: "Public Event / Social Communication",
-    titleKey: "home.caseStudies.events.vinhQuangCongAnNhanDan.title",
-    titleFallback: "Event Communication Support",
-    roleKey: "home.caseStudies.events.vinhQuangCongAnNhanDan.role",
-    roleFallback: "Social activation • Campaign seeding • Reporting support",
-    image: "/cases/vinh-quang-cong-an-nhan-dan.jpg",
-    tags: [
-      {
-        key: "home.caseStudies.events.vinhQuangCongAnNhanDan.tags.event",
-        fallback: "Event",
-      },
-      {
-        key: "home.caseStudies.events.vinhQuangCongAnNhanDan.tags.social",
-        fallback: "Social",
-      },
-      {
-        key: "home.caseStudies.events.vinhQuangCongAnNhanDan.tags.activation",
-        fallback: "Activation",
-      },
-    ],
-    metrics: [
-      {
-        labelKey:
-          "home.caseStudies.events.vinhQuangCongAnNhanDan.metrics.event.label",
-        labelFallback: "Event",
-        valueKey:
-          "home.caseStudies.events.vinhQuangCongAnNhanDan.metrics.event.value",
-        valueFallback: "Large-scale",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.vinhQuangCongAnNhanDan.metrics.social.label",
-        labelFallback: "Social",
-        valueKey:
-          "home.caseStudies.events.vinhQuangCongAnNhanDan.metrics.social.value",
-        valueFallback: "Boosted",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.vinhQuangCongAnNhanDan.metrics.monitor.label",
-        labelFallback: "Monitor",
-        valueKey:
-          "home.caseStudies.events.vinhQuangCongAnNhanDan.metrics.monitor.value",
-        valueFallback: "Daily",
-      },
-    ],
+    value: {
+      key: "home.caseStudies.impact.interactions.value",
+      fallback: "500K+",
+    },
+    label: {
+      key: "home.caseStudies.impact.interactions.label",
+      fallback: "tương tác social được kích hoạt",
+    },
+    icon: MessageSquareText,
   },
   {
-    nameKey: "home.caseStudies.events.tinhHoaViet.name",
-    nameFallback: "Tinh Hoa Việt",
-    categoryKey: "home.caseStudies.events.tinhHoaViet.category",
-    categoryFallback: "Culture / Brand Event",
-    titleKey: "home.caseStudies.events.tinhHoaViet.title",
-    titleFallback: "Campaign Seeding & Social Support",
-    roleKey: "home.caseStudies.events.tinhHoaViet.role",
-    roleFallback: "Community seeding • Content amplification • Social tracking",
-    image: "/cases/tinh-hoa-viet.jpg",
-    tags: [
-      {
-        key: "home.caseStudies.events.tinhHoaViet.tags.culture",
-        fallback: "Culture",
-      },
-      {
-        key: "home.caseStudies.events.tinhHoaViet.tags.campaign",
-        fallback: "Campaign",
-      },
-      {
-        key: "home.caseStudies.events.tinhHoaViet.tags.social",
-        fallback: "Social",
-      },
-    ],
-    metrics: [
-      {
-        labelKey:
-          "home.caseStudies.events.tinhHoaViet.metrics.content.label",
-        labelFallback: "Content",
-        valueKey:
-          "home.caseStudies.events.tinhHoaViet.metrics.content.value",
-        valueFallback: "Amplified",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.tinhHoaViet.metrics.seeding.label",
-        labelFallback: "Seeding",
-        valueKey:
-          "home.caseStudies.events.tinhHoaViet.metrics.seeding.value",
-        valueFallback: "Active",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.tinhHoaViet.metrics.tracking.label",
-        labelFallback: "Tracking",
-        valueKey:
-          "home.caseStudies.events.tinhHoaViet.metrics.tracking.value",
-        valueFallback: "Ongoing",
-      },
-    ],
+    value: {
+      key: "home.caseStudies.impact.communities.value",
+      fallback: "20+",
+    },
+    label: {
+      key: "home.caseStudies.impact.communities.label",
+      fallback: "cộng đồng được theo dõi",
+    },
+    icon: UsersRound,
   },
   {
-    nameKey: "home.caseStudies.events.vietinbankCountdown2025.name",
-    nameFallback: "VietinBank Countdown 2025",
-    categoryKey: "home.caseStudies.events.vietinbankCountdown2025.category",
-    categoryFallback: "Banking / Event Campaign",
-    titleKey: "home.caseStudies.events.vietinbankCountdown2025.title",
-    titleFallback: "Event Social Communication Support",
-    roleKey: "home.caseStudies.events.vietinbankCountdown2025.role",
-    roleFallback: "Social buzz • Community interaction • Campaign monitoring",
-    image: "/cases/vietinbank-countdown-2025.jpg",
-    tags: [
-      {
-        key: "home.caseStudies.events.vietinbankCountdown2025.tags.banking",
-        fallback: "Banking",
-      },
-      {
-        key: "home.caseStudies.events.vietinbankCountdown2025.tags.event",
-        fallback: "Event",
-      },
-      {
-        key: "home.caseStudies.events.vietinbankCountdown2025.tags.social",
-        fallback: "Social",
-      },
-    ],
-    metrics: [
-      {
-        labelKey:
-          "home.caseStudies.events.vietinbankCountdown2025.metrics.buzz.label",
-        labelFallback: "Buzz",
-        valueKey:
-          "home.caseStudies.events.vietinbankCountdown2025.metrics.buzz.value",
-        valueFallback: "High",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.vietinbankCountdown2025.metrics.engage.label",
-        labelFallback: "Engage",
-        valueKey:
-          "home.caseStudies.events.vietinbankCountdown2025.metrics.engage.value",
-        valueFallback: "Strong",
-      },
-      {
-        labelKey:
-          "home.caseStudies.events.vietinbankCountdown2025.metrics.report.label",
-        labelFallback: "Report",
-        valueKey:
-          "home.caseStudies.events.vietinbankCountdown2025.metrics.report.value",
-        valueFallback: "Weekly",
-      },
-    ],
+    value: {
+      key: "home.caseStudies.impact.reporting.value",
+      fallback: "Báo cáo",
+    },
+    label: {
+      key: "home.caseStudies.impact.reporting.label",
+      fallback: "theo ngày / tuần",
+    },
+    icon: ClipboardCheck,
   },
 ];
 
-const partners = [
-  {
-    name: "Zeit Media",
-    typeKey: "home.caseStudies.partners.zeitMedia.type",
-    typeFallback: "Media Partner",
-    shortName: "ZEIT",
-  },
-  {
-    name: "Brandforma",
-    typeKey: "home.caseStudies.partners.brandforma.type",
-    typeFallback: "Brand Agency",
-    shortName: "BRANDFORMA",
-  },
-  {
-    name: "OMG",
-    typeKey: "home.caseStudies.partners.omg.type",
-    typeFallback: "Media Agency",
-    shortName: "OMG",
-  },
-  {
-    name: "Light On",
-    typeKey: "home.caseStudies.partners.lightOn.type",
-    typeFallback: "Creative Partner",
-    shortName: "LIGHT ON",
-  },
-  {
-    name: "Zoa Creative",
-    typeKey: "home.caseStudies.partners.zoaCreative.type",
-    typeFallback: "Creative Agency",
-    shortName: "ZOA",
-  },
-  {
-    name: "Alien Media",
-    typeKey: "home.caseStudies.partners.alienMedia.type",
-    typeFallback: "Media Partner",
-    shortName: "ALIEN",
-  },
-  {
-    name: "REVU",
-    typeKey: "home.caseStudies.partners.revu.type",
-    typeFallback: "Influencer Platform",
-    shortName: "REVU",
-  },
-];
+const metricIconMap: Record<CaseStudyMetricIcon, LucideIcon> = {
+  message: MessageSquareText,
+  users: UsersRound,
+  line: LineChart,
+  bar: BarChart3,
+  rocket: Rocket,
+  report: ClipboardCheck,
+};
 
-const capabilities = [
-  {
-    key: "home.caseStudies.capabilities.eventCampaign",
-    fallback: "Event / Campaign",
-  },
-  {
-    key: "home.caseStudies.capabilities.socialActivation",
-    fallback: "Social Activation",
-  },
-  {
-    key: "home.caseStudies.capabilities.seedingAmplification",
-    fallback: "Seeding & Amplification",
-  },
-  {
-    key: "home.caseStudies.capabilities.trackingReporting",
-    fallback: "Tracking & Reporting",
-  },
-];
+function pickText(locale: "vi" | "en", vi: string, en: string) {
+  if (locale === "en") {
+    return en?.trim() || vi?.trim() || "";
+  }
 
-export default function CaseStudiesSection() {
-  const { tr } = useLanguage();
+  return vi?.trim() || en?.trim() || "";
+}
+
+function CaseStudyCard({
+  item,
+  locale,
+}: {
+  item: CaseStudyItem;
+  locale: "vi" | "en";
+}) {
+  const name = pickText(locale, item.nameVi, item.nameEn);
+  const category = pickText(locale, item.categoryVi, item.categoryEn);
 
   return (
-    <section className="relative overflow-hidden bg-slate-50 py-16 text-slate-950 sm:py-20 lg:py-24">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.10),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(34,211,238,0.16),transparent_34%)]" />
+    <article className="group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.09)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(37,99,235,0.16)]">
+      <div className="relative h-52 overflow-hidden bg-slate-900">
+        {item.image ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={item.image}
+              alt={name}
+              className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+            />
+          </>
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-900 to-blue-950 text-4xl font-black text-white/30">
+            T2M
+          </div>
+        )}
+
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-slate-950/10 to-transparent" />
+
+        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+          {item.tags.slice(0, 3).map((tag) => (
+            <span
+              key={`${item.id}-${tag}`}
+              className="rounded-md bg-blue-600 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white shadow-lg shadow-blue-950/20"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="p-6">
+        <div className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-blue-700">
+          {category}
+        </div>
+
+        <h3 className="min-h-[4rem] overflow-hidden text-2xl font-black leading-tight tracking-tight text-slate-950 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+          {name}
+        </h3>
+
+        <div className="mt-5 grid grid-cols-3 gap-3">
+          {item.metrics.slice(0, 3).map((metric) => {
+            const Icon = metricIconMap[metric.icon] ?? MessageSquareText;
+            const label = pickText(locale, metric.labelVi, metric.labelEn);
+
+            return (
+              <div
+                key={`${item.id}-${metric.id}`}
+                className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center"
+              >
+                <Icon className="mx-auto mb-2 h-5 w-5 text-cyan-600" />
+                <div className="text-lg font-black text-blue-700">
+                  {metric.value}
+                </div>
+                <div className="mt-1 text-[11px] font-semibold leading-tight text-slate-600">
+                  {label}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export default function CaseStudiesSection() {
+  const { tr, locale } = useLanguage();
+  const [data, setData] = useState<CaseStudiesData>(defaultCaseStudiesData);
+
+  useEffect(() => {
+    async function loadCaseStudiesData() {
+      try {
+        const response = await fetch("/api/admin/case-studies", {
+          cache: "no-store",
+        });
+
+        const json = await response.json();
+
+        if (!response.ok || !json?.ok) {
+          return;
+        }
+
+        setData(json.data as CaseStudiesData);
+      } catch {
+        setData(defaultCaseStudiesData);
+      }
+    }
+
+    loadCaseStudiesData();
+  }, []);
+
+  const visibleCaseStudies = useMemo(() => {
+    return data.caseStudies.slice(0, maxHomepageCaseStudies);
+  }, [data.caseStudies]);
+
+  return (
+    <section
+      id="case-studies"
+      className="relative overflow-hidden bg-[#f8fbff] pt-16 pb-8 text-slate-950 sm:pt-20 sm:pb-10 lg:pt-24 lg:pb-12"
+    >
+      <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-200/35 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 top-36 -z-10 h-80 w-80 rounded-full bg-blue-300/25 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 bottom-10 -z-10 h-80 w-80 rounded-full bg-indigo-200/40 blur-3xl" />
 
       <Container>
         <div className="mx-auto max-w-4xl text-center">
-          <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.24em] text-blue-600 shadow-sm">
-            <Sparkles className="h-3.5 w-3.5" />
-            {tr("home.caseStudies.badge", "Selected Experience")}
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-blue-700 shadow-sm">
+            <ShieldCheck className="h-4 w-4" />
+            {tr("home.caseStudies.badge", "Case Study")}
           </div>
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-            {tr("home.caseStudies.titlePrefix", "Event & Campaign")}{" "}
-            <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-              {tr("home.caseStudies.titleHighlight", "tiêu biểu")}
-            </span>
+          <h2 className="text-balance text-4xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            {tr("home.caseStudies.title", "Sự kiện & chiến dịch tiêu biểu")}
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-3xl text-pretty text-base leading-8 text-slate-600 sm:text-lg">
             {tr(
               "home.caseStudies.description",
-              "Một số chiến dịch và sự kiện tiêu biểu T2M từng hỗ trợ triển khai theo hướng social activation, seeding, amplification và reporting."
+              "Các chiến dịch T2M đã hỗ trợ triển khai từ social activation, seeding, amplification đến tracking và reporting."
             )}
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {events.map((event) => {
-            const eventName = tr(event.nameKey, event.nameFallback);
+        <div className="mt-10 overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white/85 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur">
+          <div className="grid divide-y divide-slate-200 md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
+            {impactMetrics.map((metric) => {
+              const Icon = metric.icon;
 
-            return (
-              <article
-                key={event.nameKey}
-                className="group overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(37,99,235,0.14)]"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={eventName}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                  />
+              return (
+                <div
+                  key={metric.label.key}
+                  className="group p-7 transition duration-300 hover:bg-blue-50/60"
+                >
+                  <div className="flex items-start gap-5">
+                    <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-50 to-cyan-50 text-blue-600 ring-1 ring-blue-100 transition duration-300 group-hover:scale-105 group-hover:shadow-lg">
+                      <Icon className="h-8 w-8" />
+                    </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
-
-                  <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-                    {event.tags.map((tag) => (
-                      <span
-                        key={tag.key}
-                        className="rounded-full border border-white/20 bg-white/85 px-3 py-1.5 text-xs font-semibold text-slate-700 backdrop-blur"
-                      >
-                        {tr(tag.key, tag.fallback)}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/85 text-blue-600 shadow-sm backdrop-blur">
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
-
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="text-sm font-medium text-white/85">
-                      {tr(event.categoryKey, event.categoryFallback)}
-                    </p>
-                    <h3 className="mt-1 text-2xl font-bold text-white">
-                      {eventName}
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="p-5 sm:p-6">
-                  <h4 className="text-lg font-bold text-slate-950">
-                    {tr(event.titleKey, event.titleFallback)}
-                  </h4>
-
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
-                    {tr(event.roleKey, event.roleFallback)}
-                  </p>
-
-                  <div className="mt-5 grid grid-cols-3 gap-2">
-                    {event.metrics.map((metric) => (
-                      <div
-                        key={metric.labelKey}
-                        className="rounded-2xl border border-slate-200 bg-slate-50 px-2 py-4 text-center"
-                      >
-                        <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">
-                          {tr(metric.labelKey, metric.labelFallback)}
-                        </p>
-                        <p className="mt-2 text-sm font-bold text-slate-950">
-                          {tr(metric.valueKey, metric.valueFallback)}
-                        </p>
+                    <div>
+                      <div className="text-4xl font-black tracking-[0.12em] text-blue-700 sm:text-5xl">
+                        {tr(metric.value.key, metric.value.fallback)}
                       </div>
-                    ))}
+                      <div className="mt-2 text-base font-extrabold leading-snug text-slate-950">
+                        {tr(metric.label.key, metric.label.fallback)}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </article>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        <div className="mt-10 rounded-[2rem] border border-blue-100 bg-white p-6 shadow-sm sm:p-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-600">
-                <ImageIcon className="h-3.5 w-3.5 text-blue-600" />
-                {tr("home.caseStudies.partnersBadge", "Selected Partners")}
-              </div>
-
-              <h3 className="mt-4 text-2xl font-bold text-slate-950">
-                {tr(
-                  "home.caseStudies.partnersTitle",
-                  "Agency & company partners"
-                )}
-              </h3>
-
-              <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">
-                {tr(
-                  "home.caseStudies.partnersDescription",
-                  "Một số đối tác, agency và đơn vị T2M từng đồng hành hỗ trợ triển khai campaign."
-                )}
-              </p>
-            </div>
-
-            <Button
-              href="/case-studies"
-              size="lg"
-              className="w-full bg-blue-600 text-white shadow-[0_16px_32px_rgba(37,99,235,0.20)] hover:bg-blue-500 sm:w-auto"
-            >
-              {tr("home.caseStudies.viewMoreCta", "Xem thêm kinh nghiệm")}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
-            {partners.map((partner) => (
-              <div
-                key={partner.name}
-                className="group flex min-h-24 flex-col items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-5 text-center transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white hover:shadow-sm"
-              >
-                <p className="text-base font-black tracking-tight text-slate-950">
-                  {partner.shortName}
-                </p>
-
-                <p className="mt-1 text-xs font-medium text-slate-500">
-                  {tr(partner.typeKey, partner.typeFallback)}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {capabilities.map((item) => (
-              <div
-                key={item.key}
-                className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold text-slate-700"
-              >
-                <CheckCircle2 className="h-4 w-4 text-blue-600" />
-                {tr(item.key, item.fallback)}
-              </div>
-            ))}
-          </div>
+        <div className="mt-7 grid gap-6 lg:grid-cols-3">
+          {visibleCaseStudies.map((item) => (
+            <CaseStudyCard key={item.id} item={item} locale={locale} />
+          ))}
         </div>
       </Container>
     </section>

@@ -2,6 +2,7 @@ import Hero from "@/components/home/Hero";
 import AboutSection from "@/components/home/AboutSection";
 import ServicesSection from "@/components/home/ServicesSection";
 import CaseStudiesSection from "@/components/home/CaseStudiesSection";
+import PartnerClientSection from "@/components/home/PartnerClientSection";
 import FinalCTA from "@/components/home/FinalCTA";
 
 export default function HomePage() {
@@ -11,6 +12,7 @@ export default function HomePage() {
       <AboutSection />
       <ServicesSection />
       <CaseStudiesSection />
+      <PartnerClientSection />
       <FinalCTA />
     </>
   );

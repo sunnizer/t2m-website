@@ -1,0 +1,246 @@
+{
+  "clients": [
+    {
+      "id": "vinfast",
+      "name": "Zeit",
+      "shortName": "Zeit",
+      "image": "/partner-logos/clients-vinfast-1780790395154.jpg",
+      "className": "tracking-[0.34em]",
+      "size": "large"
+    },
+    {
+      "id": "samsung",
+      "name": "Samsung",
+      "shortName": "SAMSUNG",
+      "image": "",
+      "className": "tracking-[0.12em]",
+      "size": "medium"
+    },
+    {
+      "id": "shopee",
+      "name": "Shopee",
+      "shortName": "Shopee",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "tp-link",
+      "name": "TP-Link",
+      "shortName": "tp-link",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "vivo",
+      "name": "Vivo",
+      "shortName": "vivo",
+      "image": "",
+      "className": "tracking-[0.22em]",
+      "size": "medium"
+    },
+    {
+      "id": "la-roche-posay",
+      "name": "La Roche-Posay",
+      "shortName": "LA ROCHE-POSAY",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "baoviet",
+      "name": "BaoViet",
+      "shortName": "BAOVIET",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "fpt",
+      "name": "FPT",
+      "shortName": "FPT",
+      "image": "",
+      "className": "italic tracking-[0.08em]",
+      "size": "medium"
+    },
+    {
+      "id": "thegioididong",
+      "name": "The Gioi Di Dong",
+      "shortName": "thegioididong",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "pnj",
+      "name": "PNJ",
+      "shortName": "PNJ",
+      "image": "",
+      "className": "font-serif tracking-[0.08em]",
+      "size": "medium"
+    },
+    {
+      "id": "momo",
+      "name": "MoMo",
+      "shortName": "momo",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "vietcombank",
+      "name": "Vietcombank",
+      "shortName": "Vietcombank",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "viettel",
+      "name": "Viettel Telecom",
+      "shortName": "viettel telecom",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "lotte",
+      "name": "Lotte",
+      "shortName": "LOTTE",
+      "image": "",
+      "className": "tracking-[0.12em]",
+      "size": "medium"
+    },
+    {
+      "id": "tiki",
+      "name": "Tiki",
+      "shortName": "TIKI",
+      "image": "",
+      "className": "tracking-[0.14em]",
+      "size": "medium"
+    },
+    {
+      "id": "heineken",
+      "name": "Heineken",
+      "shortName": "HEINEKEN",
+      "image": "",
+      "className": "tracking-[0.12em]",
+      "size": "medium"
+    },
+    {
+      "id": "pg",
+      "name": "P&G",
+      "shortName": "P&G",
+      "image": "",
+      "className": "font-serif italic",
+      "size": "medium"
+    },
+    {
+      "id": "abbott",
+      "name": "Abbott",
+      "shortName": "Abbott",
+      "image": "",
+      "className": "font-serif",
+      "size": "medium"
+    }
+  ],
+  "partners": [
+    {
+      "id": "meta",
+      "name": "Meta",
+      "shortName": "Meta",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "shortName": "TikTok",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "shortName": "YouTube",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "zalo",
+      "name": "Zalo",
+      "shortName": "Zalo",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "google",
+      "name": "Google",
+      "shortName": "Google",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "shortName": "LinkedIn",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "kompa",
+      "name": "Kompa",
+      "shortName": "Kompa",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "reputa",
+      "name": "Reputa",
+      "shortName": "Reputa",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "gcomm",
+      "name": "GCOMM",
+      "shortName": "gcomm",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "younet-media",
+      "name": "YouNet Media",
+      "shortName": "YouNet Media",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "admicro",
+      "name": "Admicro",
+      "shortName": "admicro",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    },
+    {
+      "id": "brands-vietnam",
+      "name": "Brands Vietnam",
+      "shortName": "BRANDS Vietnam",
+      "image": "",
+      "className": "",
+      "size": "medium"
+    }
+  ]
+}
