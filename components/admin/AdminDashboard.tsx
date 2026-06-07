@@ -67,7 +67,7 @@ export default function AdminDashboard() {
 
         <div className="mb-8 grid gap-4 md:grid-cols-3">
           <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-            <div className="text-3xl font-black text-blue-700">3</div>
+            <div className="text-3xl font-black text-blue-700">4</div>
             <div className="mt-1 text-sm font-bold text-slate-600">
               Admin đang hoạt động
             </div>

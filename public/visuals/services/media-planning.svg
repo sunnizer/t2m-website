@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" fill="none">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="900" y2="520"><stop stop-color="#F8FAFC"/><stop offset="1" stop-color="#DDFBFF"/></linearGradient><filter id="s" x="0" y="0" width="900" height="520" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-opacity="0.14" flood-color="#0F172A"/></filter></defs>
+  <rect width="900" height="520" fill="url(#bg)"/>
+  <circle cx="690" cy="100" r="170" fill="#38BDF8" opacity="0.18"/>
+  <circle cx="170" cy="440" r="180" fill="#14B8A6" opacity="0.16"/>
+  <g filter="url(#s)">
+    <rect x="155" y="88" width="590" height="330" rx="30" fill="white"/>
+    <rect x="191" y="126" width="518" height="64" rx="16" fill="#F1F5F9"/>
+    <rect x="215" y="145" width="105" height="15" rx="8" fill="#1D4ED8"/>
+    <rect x="357" y="145" width="105" height="15" rx="8" fill="#06B6D4"/>
+    <rect x="499" y="145" width="105" height="15" rx="8" fill="#14B8A6"/>
+    <rect x="193" y="222" width="150" height="126" rx="22" fill="#EFF6FF"/>
+    <path d="M268 248a42 42 0 1 1-31 70l31-28v-42Z" fill="#2563EB"/><path d="M268 248a42 42 0 0 1 42 42h-42v-42Z" fill="#22D3EE"/><path d="M268 290h42a42 42 0 0 1-73 28l31-28Z" fill="#14B8A6"/>
+    <rect x="382" y="222" width="326" height="34" rx="13" fill="#F8FAFC"/><rect x="402" y="234" width="180" height="10" rx="5" fill="#93C5FD"/><circle cx="674" cy="239" r="8" fill="#2563EB"/>
+    <rect x="382" y="276" width="326" height="34" rx="13" fill="#F8FAFC"/><rect x="402" y="288" width="220" height="10" rx="5" fill="#67E8F9"/><circle cx="674" cy="293" r="8" fill="#06B6D4"/>
+    <rect x="382" y="330" width="326" height="34" rx="13" fill="#F8FAFC"/><rect x="402" y="342" width="140" height="10" rx="5" fill="#5EEAD4"/><circle cx="674" cy="347" r="8" fill="#14B8A6"/>
+  </g>
+  <g opacity="0.9">
+    <rect x="70" y="300" width="168" height="100" rx="24" fill="#0F172A"/>
+    <path d="M104 362h24v-24h-24v24Zm38 0h24v-45h-24v45Zm38 0h24v-62h-24v62Z" fill="#22D3EE"/>
+  </g>
+  <g opacity="0.95"><circle cx="784" cy="316" r="42" fill="#1E3A8A"/><path d="M765 315l13 13 28-32" stroke="white" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

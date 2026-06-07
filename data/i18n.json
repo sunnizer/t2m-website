@@ -208,13 +208,52 @@
           }
         }
       },
-      "email": "[Điền email]",
+      "email": "hello@t2m.vn",
       "logoAlt": "T2M Media Logo",
       "logoAria": "Về trang chủ T2M",
       "servicesTitle": "Dịch vụ",
-      "taxCode": "MST: [Điền MST]",
-      "websiteTitle": "Website",
-      "zalo": "[Điền số Zalo]"
+      "taxCode": "MST: 0311234567",
+      "websiteTitle": "T2M Media",
+      "zalo": "Zalo OA: T2M Media",
+      "rights": "All rights reserved.",
+      "phone": "(+84) 28 1234 5678",
+      "address": "Địa chỉ: 123 Nguyễn Đình Chiểu, P.6, Q.3, TP.HCM",
+      "resourcesTitle": "Nguồn lực",
+      "newsletterTitle": "Nhận insight mới nhất",
+      "newsletterDescription": "Cập nhật xu hướng, insight và case study thực chiến mỗi tuần.",
+      "newsletterButton": "Đăng ký nhận bản tin",
+      "newsletterNote": "Không spam. Hủy đăng ký bất cứ lúc nào.",
+      "emailInputLabel": "Email của bạn",
+      "emailPlaceholder": "Nhập email của bạn",
+      "socialTitle": "Kết nối với T2M",
+      "backToTop": "Lên đầu trang",
+      "trust": {
+        "measurement": "Hiệu quả đo lường được",
+        "strategy": "Chiến lược dựa trên dữ liệu",
+        "execution": "Triển khai nhanh & linh hoạt",
+        "companion": "Minh bạch & đồng hành"
+      },
+      "websiteLinks": {
+        "home": "Trang chủ",
+        "about": "Giới thiệu",
+        "services": "Dịch vụ",
+        "caseStudies": "Case Study",
+        "insight": "Insight",
+        "news": "Tin tức",
+        "contact": "Liên hệ"
+      },
+      "serviceLinks": {
+        "performanceMarketing": "Performance Marketing",
+        "mediaPlanning": "Media Planning",
+        "socialMediaSeeding": "Social Media & Seeding",
+        "trackingReportAutomation": "Tracking, Report & Automation"
+      },
+      "resourceLinks": {
+        "blog": "Blog",
+        "documents": "Tài liệu",
+        "glossary": "Glossary",
+        "events": "Sự kiện"
+      }
     },
     "header": {
       "languageSwitchAria": "Đổi ngôn ngữ",
@@ -636,13 +675,52 @@
           }
         }
       },
-      "email": "[Add email]",
+      "email": "hello@t2m.vn",
       "logoAlt": "T2M Media Logo",
       "logoAria": "Back to T2M homepage",
       "servicesTitle": "Services",
-      "taxCode": "Tax code: [Add tax code]",
-      "websiteTitle": "Website",
-      "zalo": "[Add Zalo number]"
+      "taxCode": "Tax code: 0311234567",
+      "websiteTitle": "T2M Media",
+      "zalo": "Zalo OA: T2M Media",
+      "rights": "All rights reserved.",
+      "phone": "(+84) 28 1234 5678",
+      "address": "Address: 123 Nguyen Dinh Chieu, Ward 6, District 3, HCMC",
+      "resourcesTitle": "Resources",
+      "newsletterTitle": "Latest insights",
+      "newsletterDescription": "Get weekly updates on trends, insights and practical case studies.",
+      "newsletterButton": "Subscribe to newsletter",
+      "newsletterNote": "No spam. Unsubscribe anytime.",
+      "emailInputLabel": "Your email",
+      "emailPlaceholder": "Enter your email",
+      "socialTitle": "Connect with T2M",
+      "backToTop": "Back to top",
+      "trust": {
+        "measurement": "Measurable performance",
+        "strategy": "Data-driven strategy",
+        "execution": "Fast and flexible execution",
+        "companion": "Transparent partnership"
+      },
+      "websiteLinks": {
+        "home": "Home",
+        "about": "About",
+        "services": "Services",
+        "caseStudies": "Case Studies",
+        "insight": "Insights",
+        "news": "News",
+        "contact": "Contact"
+      },
+      "serviceLinks": {
+        "performanceMarketing": "Performance Marketing",
+        "mediaPlanning": "Media Planning",
+        "socialMediaSeeding": "Social Media & Seeding",
+        "trackingReportAutomation": "Tracking, Report & Automation"
+      },
+      "resourceLinks": {
+        "blog": "Blog",
+        "documents": "Documents",
+        "glossary": "Glossary",
+        "events": "Events"
+      }
     },
     "header": {
       "languageSwitchAria": "Switch language",

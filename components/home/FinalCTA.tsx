@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import Container from "@/components/layout/Container";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { getSiteContentValue } from "@/lib/siteContentData";
 import {
   CheckCircle2,
   ClipboardEdit,
@@ -80,7 +81,7 @@ const actionCards = [
 ];
 
 export default function FinalCTA() {
-  const { tr } = useLanguage();
+  const { tr, locale } = useLanguage();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -349,9 +350,11 @@ export default function FinalCTA() {
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-blue-600" />
                     <span>
-                      {tr(
-                        "home.finalCta.contact.zalo",
-                        "Zalo: [Điền số Zalo]"
+                      {getSiteContentValue(
+                        "global-contact",
+                        "zalo",
+                        tr("home.finalCta.contact.zalo", "Zalo: [Điền số Zalo]"),
+                        locale
                       )}
                     </span>
                   </div>

@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { getSiteContentValue } from "@/lib/siteContentData";
 import {
   CheckCircle2,
   Mail,
@@ -54,7 +55,7 @@ const checklistItems = [
 ];
 
 export default function FloatingContact() {
-  const { tr } = useLanguage();
+  const { tr, locale } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -176,9 +177,11 @@ export default function FloatingContact() {
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-blue-600" />
                     <span>
-                      {tr(
-                        "floatingContact.contact.zalo",
-                        "Zalo: [Điền số Zalo]"
+                      {getSiteContentValue(
+                        "global-contact",
+                        "zalo",
+                        tr("floatingContact.contact.zalo", "Zalo: [Điền số Zalo]"),
+                        locale
                       )}
                     </span>
                   </div>

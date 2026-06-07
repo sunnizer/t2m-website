@@ -1,19 +1,19 @@
 "use client";
 
+import Link from "next/link";
 import Container from "@/components/layout/Container";
-import Button from "@/components/ui/Button";
 import { useLanguage } from "@/components/providers/LanguageProvider";
 import {
   ArrowRight,
-  BarChart3,
-  CalendarRange,
   CheckCircle2,
+  ClipboardList,
+  LineChart,
   Megaphone,
-  MessagesSquare,
-  MousePointerClick,
-  PieChart,
+  Rocket,
+  ShieldCheck,
+  Target,
+  UsersRound,
   Workflow,
-  Zap,
 } from "lucide-react";
 
 const services = [
@@ -21,368 +21,196 @@ const services = [
     titleKey: "home.services.items.performanceMarketing.title",
     titleFallback: "Performance Marketing",
     subtitleKey: "home.services.items.performanceMarketing.subtitle",
-    subtitleFallback: "Tối ưu traffic, lead, engagement hoặc conversion.",
-    icon: BarChart3,
-    gradient: "from-blue-500 to-cyan-400",
+    subtitleFallback:
+      "Tối ưu traffic, lead và hiệu quả media theo KPI rõ ràng.",
+    icon: Target,
+    image: "/visuals/services/performance-marketing.svg",
+    accent: "from-blue-600 to-cyan-400",
     tags: [
-      { key: "home.services.items.performanceMarketing.tags.meta", fallback: "Meta" },
-      { key: "home.services.items.performanceMarketing.tags.tiktok", fallback: "TikTok" },
-      { key: "home.services.items.performanceMarketing.tags.google", fallback: "Google" },
+      {
+        key: "home.services.items.performanceMarketing.tags.foundation",
+        fallback: "Đa nền tảng",
+      },
+      {
+        key: "home.services.items.performanceMarketing.tags.kpi",
+        fallback: "Theo KPI",
+      },
+      {
+        key: "home.services.items.performanceMarketing.tags.cost",
+        fallback: "Kiểm soát chi phí",
+      },
     ],
-    visual: "growth",
   },
   {
     titleKey: "home.services.items.mediaPlanning.title",
     titleFallback: "Media Planning",
     subtitleKey: "home.services.items.mediaPlanning.subtitle",
-    subtitleFallback: "Lập kế hoạch kênh, ngân sách, KPI và timeline.",
-    icon: CalendarRange,
-    gradient: "from-cyan-500 to-teal-400",
+    subtitleFallback: "Lập kế hoạch kênh, KPI, ngân sách và timeline rõ ràng.",
+    icon: ClipboardList,
+    image: "/visuals/services/media-planning.svg",
+    accent: "from-cyan-500 to-teal-400",
     tags: [
-      { key: "home.services.items.mediaPlanning.tags.channelMix", fallback: "Channel Mix" },
-      { key: "home.services.items.mediaPlanning.tags.budget", fallback: "Budget" },
-      { key: "home.services.items.mediaPlanning.tags.kpi", fallback: "KPI" },
+      {
+        key: "home.services.items.mediaPlanning.tags.channelMix",
+        fallback: "Channel mix",
+      },
+      {
+        key: "home.services.items.mediaPlanning.tags.budget",
+        fallback: "Budget split",
+      },
+      {
+        key: "home.services.items.mediaPlanning.tags.timeline",
+        fallback: "Timeline rõ ràng",
+      },
     ],
-    visual: "plan",
   },
   {
     titleKey: "home.services.items.socialMediaSeeding.title",
-    titleFallback: "Social Media & Seeding",
+    titleFallback: "Social Seeding & Community",
     subtitleKey: "home.services.items.socialMediaSeeding.subtitle",
-    subtitleFallback: "Kích hoạt social proof, comment và tín hiệu cộng đồng.",
-    icon: MessagesSquare,
-    gradient: "from-blue-600 to-indigo-500",
+    subtitleFallback: "Kích hoạt thảo luận và social proof cho campaign.",
+    icon: UsersRound,
+    image: "/visuals/services/social-seeding.svg",
+    accent: "from-sky-500 to-blue-600",
     tags: [
-      { key: "home.services.items.socialMediaSeeding.tags.seeding", fallback: "Seeding" },
-      { key: "home.services.items.socialMediaSeeding.tags.community", fallback: "Community" },
-      { key: "home.services.items.socialMediaSeeding.tags.socialProof", fallback: "Social Proof" },
+      {
+        key: "home.services.items.socialMediaSeeding.tags.discussion",
+        fallback: "Tạo thảo luận",
+      },
+      {
+        key: "home.services.items.socialMediaSeeding.tags.signal",
+        fallback: "Tăng tín hiệu cộng đồng",
+      },
+      {
+        key: "home.services.items.socialMediaSeeding.tags.amplification",
+        fallback: "Hỗ trợ amplification",
+      },
     ],
-    visual: "social",
   },
   {
     titleKey: "home.services.items.trackingReportAutomation.title",
-    titleFallback: "Tracking, Report & Automation",
+    titleFallback: "Tracking, Reporting & Automation",
     subtitleKey: "home.services.items.trackingReportAutomation.subtitle",
-    subtitleFallback: "Theo dõi dữ liệu, báo cáo và tự động hóa vận hành.",
+    subtitleFallback:
+      "Theo dõi dữ liệu, giảm thao tác thủ công và tối ưu nhanh hơn.",
     icon: Workflow,
-    gradient: "from-cyan-500 to-blue-600",
+    image: "/visuals/services/tracking-reporting.svg",
+    accent: "from-teal-400 to-blue-600",
     tags: [
-      { key: "home.services.items.trackingReportAutomation.tags.dashboard", fallback: "Dashboard" },
-      { key: "home.services.items.trackingReportAutomation.tags.report", fallback: "Report" },
-      { key: "home.services.items.trackingReportAutomation.tags.automation", fallback: "Automation" },
+      {
+        key: "home.services.items.trackingReportAutomation.tags.dashboard",
+        fallback: "Dashboard gọn",
+      },
+      {
+        key: "home.services.items.trackingReportAutomation.tags.report",
+        fallback: "Report dễ đọc",
+      },
+      {
+        key: "home.services.items.trackingReportAutomation.tags.workflow",
+        fallback: "Workflow tự động",
+      },
     ],
-    visual: "automation",
   },
 ];
 
-function ServiceVisual({
-  type,
-  tr,
-}: {
-  type: string;
-  tr: (key: string, fallback?: string) => string;
-}) {
-  if (type === "growth") {
-    const metrics = [
-      {
-        labelKey: "home.services.visuals.growth.metrics.reach.label",
-        labelFallback: "Reach",
-        value: "82%",
-      },
-      {
-        labelKey: "home.services.visuals.growth.metrics.lead.label",
-        labelFallback: "Lead",
-        value: "2.4K",
-      },
-      {
-        labelKey: "home.services.visuals.growth.metrics.cpa.label",
-        labelFallback: "CPA",
-        value: "-18%",
-      },
-    ];
-
-    return (
-      <div className="mt-6 rounded-3xl border border-slate-100 bg-slate-50 p-4">
-        <div className="grid grid-cols-3 gap-3">
-          {metrics.map((item) => (
-            <div
-              key={item.labelKey}
-              className="rounded-2xl bg-white p-3 shadow-sm"
-            >
-              <p className="text-[11px] font-semibold text-slate-400">
-                {tr(item.labelKey, item.labelFallback)}
-              </p>
-              <p className="mt-1 text-lg font-bold text-slate-950">
-                {item.value}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-4 flex h-20 items-end gap-2 rounded-2xl bg-white p-3 shadow-sm">
-          {[30, 48, 42, 64, 58, 78, 92].map((height, index) => (
-            <div
-              key={index}
-              className="flex-1 rounded-t-lg bg-gradient-to-t from-blue-600 to-cyan-300"
-              style={{ height: `${height}%` }}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (type === "plan") {
-    const channels = [
-      {
-        key: "home.services.visuals.plan.channels.meta",
-        fallback: "Meta",
-        percent: 38,
-      },
-      {
-        key: "home.services.visuals.plan.channels.google",
-        fallback: "Google",
-        percent: 26,
-      },
-      {
-        key: "home.services.visuals.plan.channels.tiktok",
-        fallback: "TikTok",
-        percent: 18,
-      },
-      {
-        key: "home.services.visuals.plan.channels.social",
-        fallback: "Social",
-        percent: 18,
-      },
-    ];
-
-    return (
-      <div className="mt-6 rounded-3xl border border-slate-100 bg-slate-50 p-4">
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-              {tr("home.services.visuals.plan.title", "Channel Mix")}
-            </p>
-            <PieChart className="h-4 w-4 text-blue-600" />
-          </div>
-
-          <div className="mt-4 grid grid-cols-[88px_1fr] gap-4">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[conic-gradient(#2563eb_0_38%,#06b6d4_38%_64%,#22c55e_64%_82%,#cbd5e1_82%_100%)]">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[10px] font-bold text-slate-700">
-                100%
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              {channels.map((item, index) => (
-                <div
-                  key={item.key}
-                  className="flex items-center justify-between text-xs"
-                >
-                  <span className="flex items-center gap-2 text-slate-600">
-                    <span
-                      className={[
-                        "h-2 w-2 rounded-full",
-                        index === 0 && "bg-blue-600",
-                        index === 1 && "bg-cyan-500",
-                        index === 2 && "bg-green-500",
-                        index === 3 && "bg-slate-300",
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                    />
-                    {tr(item.key, item.fallback)}
-                  </span>
-                  <span className="font-semibold text-slate-700">
-                    {item.percent}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (type === "social") {
-    const platforms = [
-      { key: "home.services.visuals.social.platforms.facebook", fallback: "FB" },
-      { key: "home.services.visuals.social.platforms.tiktok", fallback: "TT" },
-      { key: "home.services.visuals.social.platforms.youtube", fallback: "YT" },
-      { key: "home.services.visuals.social.platforms.zalo", fallback: "ZL" },
-    ];
-
-    const metrics = [
-      {
-        labelKey: "home.services.visuals.social.metrics.comments.label",
-        labelFallback: "Comments",
-        value: "2.6K",
-      },
-      {
-        labelKey: "home.services.visuals.social.metrics.shares.label",
-        labelFallback: "Shares",
-        value: "3.7K",
-      },
-      {
-        labelKey: "home.services.visuals.social.metrics.engage.label",
-        labelFallback: "Engage",
-        value: "8.9%",
-      },
-    ];
-
-    return (
-      <div className="mt-6 rounded-3xl border border-slate-100 bg-slate-50 p-4">
-        <div className="rounded-2xl bg-white p-4 shadow-sm">
-          <div className="flex items-center justify-between">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-              {tr("home.services.visuals.social.title", "Social Signals")}
-            </p>
-            <Megaphone className="h-4 w-4 text-blue-600" />
-          </div>
-
-          <div className="mt-4 grid grid-cols-4 gap-2">
-            {platforms.map((item) => (
-              <div
-                key={item.key}
-                className="flex h-10 items-center justify-center rounded-xl bg-slate-50 text-xs font-bold text-slate-700"
-              >
-                {tr(item.key, item.fallback)}
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            {metrics.map((item) => (
-              <div key={item.labelKey} className="rounded-xl bg-slate-50 p-3">
-                <p className="text-[10px] text-slate-400">
-                  {tr(item.labelKey, item.labelFallback)}
-                </p>
-                <p className="mt-1 text-sm font-bold text-slate-950">
-                  {item.value}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const workflowSteps = [
-    {
-      labelKey: "home.services.visuals.automation.steps.data",
-      labelFallback: "Data",
-      icon: BarChart3,
-    },
-    {
-      labelKey: "home.services.visuals.automation.steps.track",
-      labelFallback: "Track",
-      icon: MousePointerClick,
-    },
-    {
-      labelKey: "home.services.visuals.automation.steps.report",
-      labelFallback: "Report",
-      icon: CheckCircle2,
-    },
-  ];
-
-  return (
-    <div className="mt-6 rounded-3xl border border-slate-100 bg-slate-50 p-4">
-      <div className="rounded-2xl bg-white p-4 shadow-sm">
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
-            {tr("home.services.visuals.automation.title", "Workflow")}
-          </p>
-          <Zap className="h-4 w-4 text-blue-600" />
-        </div>
-
-        <div className="mt-5 flex items-center justify-between gap-2">
-          {workflowSteps.map((item, index) => {
-            const Icon = item.icon;
-
-            return (
-              <div key={item.labelKey} className="flex flex-1 items-center gap-2">
-                <div className="flex flex-1 flex-col items-center">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <p className="mt-2 text-xs font-semibold text-slate-600">
-                    {tr(item.labelKey, item.labelFallback)}
-                  </p>
-                </div>
-
-                {index < 2 && <ArrowRight className="h-4 w-4 text-slate-300" />}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
+const flow = [
+  {
+    titleKey: "home.services.flow.plan.title",
+    titleFallback: "Plan",
+    subtitleKey: "home.services.flow.plan.subtitle",
+    subtitleFallback: "Lập kế hoạch",
+    icon: ClipboardList,
+  },
+  {
+    titleKey: "home.services.flow.launch.title",
+    titleFallback: "Launch",
+    subtitleKey: "home.services.flow.launch.subtitle",
+    subtitleFallback: "Triển khai",
+    icon: Rocket,
+  },
+  {
+    titleKey: "home.services.flow.amplify.title",
+    titleFallback: "Amplify",
+    subtitleKey: "home.services.flow.amplify.subtitle",
+    subtitleFallback: "Kích hoạt",
+    icon: Megaphone,
+  },
+  {
+    titleKey: "home.services.flow.track.title",
+    titleFallback: "Track",
+    subtitleKey: "home.services.flow.track.subtitle",
+    subtitleFallback: "Đo lường & tối ưu",
+    icon: LineChart,
+  },
+];
 
 export default function ServicesSection() {
   const { tr } = useLanguage();
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 text-slate-950 sm:py-20 lg:py-24">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.08),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.14),transparent_34%)]" />
+    <section className="relative overflow-hidden bg-white py-14 text-slate-950 sm:py-20 lg:py-20">
+      <div className="absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(circle_at_18%_5%,rgba(59,130,246,0.12),transparent_32%),radial-gradient(circle_at_82%_10%,rgba(45,212,191,0.16),transparent_30%)]" />
 
       <Container>
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="mx-auto mb-5 inline-flex rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.28em] text-blue-600 shadow-sm">
-            {tr("home.services.badge", "Services")}
+        <div className="mx-auto max-w-5xl text-center">
+          <div className="mx-auto mb-4 inline-flex rounded-full bg-blue-50 px-6 py-2 text-xs font-extrabold uppercase tracking-[0.32em] text-blue-600 shadow-sm ring-1 ring-blue-100/80">
+            {tr("home.services.badge", "Dịch vụ cốt lõi")}
           </div>
 
-          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-            {tr("home.services.titlePrefix", "Giải pháp")}{" "}
-            <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-              {tr("home.services.titleHighlight", "Digital Marketing")}
-            </span>{" "}
+          <h2 className="text-3xl font-black tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
             {tr(
-              "home.services.titleSuffix",
-              "cho campaign cần hiệu quả"
+              "home.services.title",
+              "Giải pháp giúp campaign vận hành hiệu quả hơn",
             )}
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">
             {tr(
               "home.services.description",
-              "T2M tập trung vào các hạng mục cốt lõi giúp chiến dịch được lập kế hoạch, triển khai, đo lường và tối ưu rõ ràng."
+              "Từ planning đến tracking, T2M giúp chiến dịch rõ hơn, gọn hơn và dễ kiểm soát hơn.",
             )}
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {services.map((service) => {
             const Icon = service.icon;
 
             return (
               <article
                 key={service.titleKey}
-                className="group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_20px_60px_rgba(15,23,42,0.07)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(37,99,235,0.14)] sm:p-6"
+                className="group relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_22px_70px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_26px_80px_rgba(37,99,235,0.16)]"
               >
-                <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-blue-100 blur-3xl transition group-hover:bg-cyan-100" />
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  <img
+                    src={service.image}
+                    alt={tr(service.titleKey, service.titleFallback)}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-white/5" />
+                </div>
 
-                <div className="relative">
-                  <div className="flex items-start justify-between gap-4">
+                <div className="relative p-5 sm:p-6">
+                  <div className="-mt-12 mb-4 flex items-end justify-between gap-3">
                     <div
-                      className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${service.gradient} text-white shadow-lg shadow-blue-500/20`}
+                      className={`flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br ${service.accent} text-white shadow-[0_16px_34px_rgba(37,99,235,0.25)] ring-4 ring-white`}
                     >
-                      <Icon className="h-7 w-7" />
+                      <Icon className="h-8 w-8" />
                     </div>
-
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-blue-600 transition group-hover:translate-x-1">
+                    <Link
+                      href="/services"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-blue-600 shadow-sm transition group-hover:translate-x-1 group-hover:border-blue-200 group-hover:bg-blue-50"
+                      aria-label={tr("home.services.cardCta", "Xem chi tiết")}
+                    >
                       <ArrowRight className="h-4 w-4" />
-                    </div>
+                    </Link>
                   </div>
 
-                  <h3 className="mt-6 text-xl font-bold text-slate-950">
+                  <h3 className="line-clamp-2 min-h-[3.25rem] text-xl font-extrabold leading-tight text-slate-950">
                     {tr(service.titleKey, service.titleFallback)}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                  <p className="mt-2 min-h-[3rem] text-sm leading-6 text-slate-600">
                     {tr(service.subtitleKey, service.subtitleFallback)}
                   </p>
 
@@ -390,45 +218,104 @@ export default function ServicesSection() {
                     {service.tags.map((tag) => (
                       <span
                         key={tag.key}
-                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600"
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-blue-100 bg-blue-50/60 px-3 py-2 text-[11px] font-bold text-slate-700"
                       >
+                        <CheckCircle2 className="h-3.5 w-3.5 text-blue-600" />
                         {tr(tag.key, tag.fallback)}
                       </span>
                     ))}
                   </div>
 
-                  <ServiceVisual type={service.visual} tr={tr} />
+                  <Link
+                    href="/services"
+                    className="mt-5 inline-flex items-center text-sm font-extrabold text-blue-600 transition hover:text-blue-500"
+                  >
+                    {tr("home.services.cardCta", "Xem chi tiết")}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </div>
               </article>
             );
           })}
         </div>
 
-        <div className="mt-8 rounded-[2rem] border border-blue-100 bg-gradient-to-r from-blue-50 via-white to-cyan-50 p-6 shadow-sm sm:p-8">
-          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="mt-8 hidden items-center justify-center gap-4 lg:flex">
+          {flow.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.titleKey} className="flex items-center gap-4">
+                <div className="flex min-w-[230px] items-center gap-4 rounded-[1.4rem] border border-slate-200 bg-white px-7 py-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-600">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-extrabold text-slate-950">
+                      {tr(item.titleKey, item.titleFallback)}
+                    </p>
+                    <p className="text-sm font-medium text-slate-500">
+                      {tr(item.subtitleKey, item.subtitleFallback)}
+                    </p>
+                  </div>
+                </div>
+                {index < flow.length - 1 && (
+                  <div className="flex w-20 items-center justify-center text-blue-400">
+                    <span className="h-px flex-1 border-t border-dashed border-blue-300" />
+                    <ArrowRight className="h-5 w-5" />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="relative mt-10 overflow-hidden rounded-[2rem] bg-gradient-to-r from-blue-600 via-blue-500 to-teal-400 p-7 text-white shadow-[0_28px_90px_rgba(37,99,235,0.24)] sm:p-9">
+          <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/20 blur-3xl" />
+          <div className="absolute bottom-0 right-8 hidden h-32 w-48 rounded-t-[2rem] border border-white/25 bg-white/10 backdrop-blur-md lg:block" />
+          <div className="relative grid gap-7 lg:grid-cols-[1.1fr_1.4fr] lg:items-center">
             <div>
-              <h3 className="text-xl font-bold text-slate-950">
+              <h3 className="max-w-xl text-2xl font-black leading-tight sm:text-3xl">
                 {tr(
                   "home.services.operation.title",
-                  "Không chỉ là chạy ads, mà là vận hành campaign có hệ thống."
+                  "Cần một partner triển khai campaign rõ hơn và gọn hơn?",
                 )}
               </h3>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+              <p className="mt-3 max-w-xl text-sm leading-7 text-blue-50 sm:text-base">
                 {tr(
                   "home.services.operation.description",
-                  "T2M kết hợp planning, execution, social seeding, tracking và reporting để giúp chiến dịch rõ việc, rõ dữ liệu và dễ tối ưu hơn."
+                  "T2M phù hợp với brand, SME và agency cần đội ngũ hỗ trợ từ planning đến execution.",
                 )}
               </p>
             </div>
 
-            <Button
-              href="/contact"
-              size="lg"
-              className="w-full bg-blue-600 text-white shadow-[0_16px_32px_rgba(37,99,235,0.20)] hover:bg-blue-500 sm:w-auto"
-            >
-              {tr("home.services.operation.cta", "Trao đổi nhu cầu")}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <div className="flex flex-col gap-3 sm:flex-row lg:justify-center">
+              <Link
+                href="/contact"
+                className="inline-flex h-14 items-center justify-center rounded-2xl bg-white px-8 text-base font-extrabold text-blue-600 shadow-[0_18px_40px_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-blue-50"
+              >
+                {tr(
+                  "home.services.operation.primaryCta",
+                  "Gửi brief nhận tư vấn",
+                )}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+              <Link
+                href="/case-studies"
+                className="inline-flex h-14 items-center justify-center rounded-2xl border border-white/40 bg-white/10 px-8 text-base font-extrabold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/15"
+              >
+                {tr("home.services.operation.secondaryCta", "Xem case studies")}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </div>
+
+            <div className="flex items-center gap-3 text-sm font-semibold text-blue-50 lg:col-start-2 lg:-mt-4 lg:justify-center">
+              <ShieldCheck className="h-5 w-5 shrink-0" />
+              <span>
+                {tr(
+                  "home.services.operation.note",
+                  "Có thể triển khai theo từng hạng mục hoặc đồng hành toàn campaign.",
+                )}
+              </span>
+            </div>
           </div>
         </div>
       </Container>

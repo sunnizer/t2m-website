@@ -1,0 +1,236 @@
+{
+  "pages": [
+    {
+      "id": "global-company",
+      "title": "Thông tin công ty",
+      "description": "Thông tin pháp lý và nhận diện dùng chung toàn website.",
+      "fields": [
+        {
+          "id": "companyName",
+          "label": "Tên công ty",
+          "type": "text",
+          "valueVi": "Công ty TNHH Giải Pháp và Truyền Thông T2M",
+          "valueEn": "T2M Media and Solutions Co., Ltd."
+        },
+        {
+          "id": "taxCode",
+          "label": "Mã số thuế",
+          "type": "text",
+          "valueVi": "MST: [Điền MST]",
+          "valueEn": "Tax code: [Fill tax code]"
+        },
+        {
+          "id": "address",
+          "label": "Địa chỉ công ty",
+          "type": "textarea",
+          "valueVi": "Địa chỉ: [Điền địa chỉ công ty]",
+          "valueEn": "Address: [Fill company address]"
+        },
+        {
+          "id": "copyright",
+          "label": "Copyright footer",
+          "type": "text",
+          "valueVi": "© {{year}} T2M Media & Solutions.",
+          "valueEn": "© {{year}} T2M Media & Solutions.",
+          "note": "Có thể dùng biến {{year}} để tự lấy năm hiện tại."
+        }
+      ]
+    },
+    {
+      "id": "global-contact",
+      "title": "Thông tin liên hệ",
+      "description": "Email, hotline, Zalo dùng trong Footer, CTA và Contact page.",
+      "fields": [
+        {
+          "id": "email",
+          "label": "Email công ty",
+          "type": "email",
+          "valueVi": "[Điền email]",
+          "valueEn": "[Fill email]"
+        },
+        {
+          "id": "phone",
+          "label": "Hotline",
+          "type": "phone",
+          "valueVi": "[Điền hotline]",
+          "valueEn": "[Fill hotline]"
+        },
+        {
+          "id": "zalo",
+          "label": "Zalo / Zalo OA",
+          "type": "phone",
+          "valueVi": "Zalo: [Điền số Zalo]",
+          "valueEn": "Zalo: [Fill Zalo number]"
+        }
+      ]
+    },
+    {
+      "id": "global-social",
+      "title": "Social links",
+      "description": "Link mạng xã hội dùng trong Footer và các khu vực liên hệ.",
+      "fields": [
+        {
+          "id": "facebookUrl",
+          "label": "Facebook URL",
+          "type": "url",
+          "valueVi": "#",
+          "valueEn": "#"
+        },
+        {
+          "id": "linkedinUrl",
+          "label": "LinkedIn URL",
+          "type": "url",
+          "valueVi": "#",
+          "valueEn": "#"
+        },
+        {
+          "id": "youtubeUrl",
+          "label": "YouTube URL",
+          "type": "url",
+          "valueVi": "#",
+          "valueEn": "#"
+        },
+        {
+          "id": "tiktokUrl",
+          "label": "TikTok URL",
+          "type": "url",
+          "valueVi": "#",
+          "valueEn": "#"
+        }
+      ]
+    },
+    {
+      "id": "footer",
+      "title": "Footer",
+      "description": "Các số liệu, badge đối tác và ghi chú hiển thị ở Footer.",
+      "fields": [
+        {
+          "id": "partner1Name",
+          "label": "Badge 1 - tên",
+          "type": "text",
+          "valueVi": "Google",
+          "valueEn": "Google"
+        },
+        {
+          "id": "partner1Subtitle",
+          "label": "Badge 1 - mô tả",
+          "type": "text",
+          "valueVi": "Partner",
+          "valueEn": "Partner"
+        },
+        {
+          "id": "partner2Name",
+          "label": "Badge 2 - tên",
+          "type": "text",
+          "valueVi": "Meta",
+          "valueEn": "Meta"
+        },
+        {
+          "id": "partner2Subtitle",
+          "label": "Badge 2 - mô tả",
+          "type": "text",
+          "valueVi": "Business Partner",
+          "valueEn": "Business Partner"
+        },
+        {
+          "id": "partner3Name",
+          "label": "Badge 3 - tên",
+          "type": "text",
+          "valueVi": "TikTok",
+          "valueEn": "TikTok"
+        },
+        {
+          "id": "partner3Subtitle",
+          "label": "Badge 3 - mô tả",
+          "type": "text",
+          "valueVi": "Partner",
+          "valueEn": "Partner"
+        },
+        {
+          "id": "partner4Name",
+          "label": "Badge 4 - tên",
+          "type": "text",
+          "valueVi": "Zalo",
+          "valueEn": "Zalo"
+        },
+        {
+          "id": "partner4Subtitle",
+          "label": "Badge 4 - mô tả",
+          "type": "text",
+          "valueVi": "Official Partner",
+          "valueEn": "Official Partner"
+        },
+        {
+          "id": "partner5Name",
+          "label": "Badge 5 - tên",
+          "type": "text",
+          "valueVi": "iab.",
+          "valueEn": "iab."
+        },
+        {
+          "id": "partner5Subtitle",
+          "label": "Badge 5 - mô tả",
+          "type": "text",
+          "valueVi": "Member",
+          "valueEn": "Member"
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "title": "Trang chủ",
+      "description": "Placeholder, số liệu và CTA riêng cho Homepage.",
+      "fields": [
+        {
+          "id": "primaryCta",
+          "label": "CTA chính",
+          "type": "text",
+          "valueVi": "Gửi brief nhận tư vấn",
+          "valueEn": "Send brief for consultation"
+        },
+        {
+          "id": "secondaryCta",
+          "label": "CTA phụ",
+          "type": "text",
+          "valueVi": "Xem case studies",
+          "valueEn": "View case studies"
+        }
+      ]
+    },
+    {
+      "id": "services",
+      "title": "Trang Dịch vụ",
+      "description": "Placeholder, số liệu và CTA riêng cho Services page.",
+      "fields": [
+        {
+          "id": "primaryCta",
+          "label": "CTA chính",
+          "type": "text",
+          "valueVi": "Gửi brief nhận tư vấn",
+          "valueEn": "Send brief for consultation"
+        },
+        {
+          "id": "consultationNote",
+          "label": "Ghi chú tư vấn",
+          "type": "textarea",
+          "valueVi": "Có thể triển khai theo từng hạng mục hoặc đồng hành theo toàn campaign.",
+          "valueEn": "Can be deployed by module or across the full campaign."
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Trang Liên hệ",
+      "description": "Thông tin mẫu/placeholder trên Contact page.",
+      "fields": [
+        {
+          "id": "responseTime",
+          "label": "Thời gian phản hồi",
+          "type": "text",
+          "valueVi": "Phản hồi trong 24h làm việc",
+          "valueEn": "Response within 24 business hours"
+        }
+      ]
+    }
+  ]
+}

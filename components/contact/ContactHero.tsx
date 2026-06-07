@@ -3,6 +3,7 @@
 import Container from "@/components/layout/Container";
 import Button from "@/components/ui/Button";
 import { useLanguage } from "@/components/providers/LanguageProvider";
+import { getSiteContentValue } from "@/lib/siteContentData";
 import {
   ArrowRight,
   Mail,
@@ -40,7 +41,7 @@ const contactCards = [
 ];
 
 export default function ContactHero() {
-  const { tr } = useLanguage();
+  const { tr, locale } = useLanguage();
 
   return (
     <section className="relative overflow-hidden bg-slate-50 py-16 text-slate-950 sm:py-20 lg:py-24">
@@ -92,7 +93,7 @@ export default function ContactHero() {
             <div className="mt-8 grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-blue-600" />
-                <span>{tr("contact.hero.zalo", "Zalo: [Điền số Zalo]")}</span>
+                <span>{getSiteContentValue("global-contact", "zalo", tr("contact.hero.zalo", "Zalo: [Điền số Zalo]"), locale)}</span>
               </div>
 
               <div className="flex items-center gap-2">

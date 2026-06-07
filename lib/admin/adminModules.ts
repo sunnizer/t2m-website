@@ -1,4 +1,5 @@
 import {
+  FileCog,
   FileText,
   Languages,
   LayoutDashboard,
@@ -47,6 +48,16 @@ export const adminModules: AdminModule[] = [
     icon: FileText,
     status: "active",
     badge: "Portfolio",
+  },
+
+  {
+    id: "site-content",
+    title: "Site Content",
+    description: "Quản lý MST, địa chỉ, contact, social link và placeholder theo từng page.",
+    href: "/admin/site-content",
+    icon: FileCog,
+    status: "active",
+    badge: "Settings",
   },
   {
     id: "site-settings",
