@@ -2,125 +2,77 @@
 
 import Container from "@/components/layout/Container";
 import { useLanguage } from "@/components/providers/LanguageProvider";
-import {
-  BarChart3,
-  CheckCircle2,
-  FileSpreadsheet,
-  ListChecks,
-  Presentation,
-  Sparkles,
-} from "lucide-react";
+import { ArrowUpRight, Check, FileBarChart2, LayoutGrid, ListChecks, Table2 } from "lucide-react";
 
-const deliverables = [
-  {
-    titleKey: "services.deliverables.items.mediaPlan.title",
-    titleFallback: "Media Plan / Proposal",
-    descriptionKey: "services.deliverables.items.mediaPlan.description",
-    descriptionFallback: "Kế hoạch kênh, ngân sách, KPI và timeline triển khai.",
-    icon: Presentation,
-  },
-  {
-    titleKey: "services.deliverables.items.setupChecklist.title",
-    titleFallback: "Campaign Setup Checklist",
-    descriptionKey: "services.deliverables.items.setupChecklist.description",
-    descriptionFallback: "Checklist vận hành giúp các bước triển khai rõ ràng hơn.",
-    icon: ListChecks,
-  },
-  {
-    titleKey: "services.deliverables.items.trackingSheet.title",
-    titleFallback: "Tracking Sheet",
-    descriptionKey: "services.deliverables.items.trackingSheet.description",
-    descriptionFallback: "Bảng theo dõi tiến độ, link, nội dung, KPI hoặc đầu việc.",
-    icon: FileSpreadsheet,
-  },
-  {
-    titleKey: "services.deliverables.items.performanceReport.title",
-    titleFallback: "Performance Report",
-    descriptionKey: "services.deliverables.items.performanceReport.description",
-    descriptionFallback: "Báo cáo kết quả, insight chính và learning sau campaign.",
-    icon: BarChart3,
-  },
-];
-
-const checklistItems = [
-  {
-    key: "services.deliverables.checklist.clearScope",
-    fallback: "Rõ phạm vi công việc",
-  },
-  {
-    key: "services.deliverables.checklist.clearContactPoint",
-    fallback: "Rõ đầu mối phối hợp",
-  },
-  {
-    key: "services.deliverables.checklist.clearKpiTracking",
-    fallback: "Rõ KPI / tracking",
-  },
-  {
-    key: "services.deliverables.checklist.clearReportLearning",
-    fallback: "Rõ báo cáo và learning",
-  },
+const examples = [
+  { vi: "Media plan", en: "Media plan", icon: LayoutGrid, bars: ["w-3/4", "w-1/2", "w-5/6"], accent: "bg-blue-500" },
+  { vi: "Checklist triển khai", en: "Launch checklist", icon: ListChecks, bars: ["w-4/5", "w-2/3", "w-3/4"], accent: "bg-cyan-500" },
+  { vi: "Bảng theo dõi", en: "Tracking sheet", icon: Table2, bars: ["w-2/3", "w-5/6", "w-1/2"], accent: "bg-indigo-500" },
+  { vi: "Báo cáo kết quả", en: "Results report", icon: FileBarChart2, bars: ["w-1/2", "w-3/4", "w-2/3"], accent: "bg-emerald-500" },
 ];
 
 export default function ServiceDeliverables() {
-  const { tr } = useLanguage();
+  const { locale, tr } = useLanguage();
 
   return (
-    <section className="bg-white py-16 text-slate-950 sm:py-20 lg:py-24">
+    <section className="bg-[#f3f8ff] py-16 text-slate-950 sm:py-20 lg:py-24">
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-5 py-2 text-xs font-bold uppercase tracking-[0.24em] text-blue-600 shadow-sm">
-              <Sparkles className="h-3.5 w-3.5" />
-              {tr("services.deliverables.badge", "Deliverables")}
-            </div>
-
-            <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+        <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div className="max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-blue-600">
+              {tr("services.deliverables.badge", "Kết quả bàn giao")}
+            </span>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-5xl">
               {tr("services.deliverables.title", "Khách hàng nhận được gì?")}
             </h2>
-
-            <p className="mt-5 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
-              {tr(
-                "services.deliverables.description",
-                "T2M ưu tiên output rõ ràng, dễ kiểm tra và có thể dùng ngay trong quá trình vận hành campaign."
-              )}
+            <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+              {locale === "vi"
+                ? "Từ kế hoạch đến báo cáo, mỗi đầu ra đều giúp bạn theo dõi công việc dễ hơn."
+                : "From planning to reporting, every deliverable makes the work easier to follow."}
             </p>
-
-            <div className="mt-8 grid gap-3">
-              {checklistItems.map((item) => (
-                <div key={item.key} className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-blue-600" />
-                  <span className="text-sm font-semibold text-slate-700">
-                    {tr(item.key, item.fallback)}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
+          <span className="text-xs text-slate-500">
+            {locale === "vi" ? "Hình minh họa định dạng, không phải tài liệu khách hàng." : "Format illustrations, not client documents."}
+          </span>
+        </div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
-            {deliverables.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.titleKey}
-                  className="rounded-[2rem] border border-slate-200 bg-slate-50 p-6 shadow-sm"
-                >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-blue-500/20">
-                    <Icon className="h-7 w-7" />
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {examples.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.en} className="overflow-hidden rounded-[1.75rem] border border-blue-100 bg-white p-4 shadow-[0_16px_38px_rgba(30,64,175,0.07)]">
+                <div className="aspect-[1.18] rounded-2xl bg-slate-100 p-4">
+                  <div className="h-full rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
+                    <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                      <span className={`flex h-8 w-8 items-center justify-center rounded-lg text-white ${item.accent}`}><Icon className="h-4 w-4" /></span>
+                      <span className="h-2 w-20 rounded-full bg-slate-200" />
+                      <span className="ml-auto flex gap-1"><i className="h-1.5 w-1.5 rounded-full bg-slate-200" /><i className="h-1.5 w-1.5 rounded-full bg-slate-200" /></span>
+                    </div>
+                    <div className="mt-4 space-y-3">
+                      {item.bars.map((bar, row) => (
+                        <div key={row} className="flex items-center gap-3">
+                          <Check className="h-3.5 w-3.5 shrink-0 text-blue-500" />
+                          <span className={`h-2 rounded-full bg-slate-200 ${bar}`} />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-5 flex h-10 items-end gap-1.5 border-b border-slate-100 pb-1">
+                      {[4, 6, 5, 8, 6, 9, 7].map((height, bar) => (
+                        <span key={bar} className={`w-full rounded-t-sm opacity-75 ${item.accent}`} style={{ height: `${height * 10}%` }} />
+                      ))}
+                    </div>
                   </div>
-
-                  <h3 className="mt-6 text-lg font-bold text-slate-950">
-                    {tr(item.titleKey, item.titleFallback)}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    {tr(item.descriptionKey, item.descriptionFallback)}
-                  </p>
                 </div>
-              );
-            })}
-          </div>
+                <div className="flex items-center justify-between gap-2 px-1 pt-5 pb-1">
+                  <div>
+                    <span className="text-xs font-bold text-blue-600">0{index + 1}</span>
+                    <h3 className="mt-1 text-base font-bold">{locale === "vi" ? item.vi : item.en}</h3>
+                  </div>
+                  <ArrowUpRight className="h-5 w-5 text-blue-600" aria-hidden="true" />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Container>
     </section>
